@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/deblack/tfg-doc'
+make: Leaving directory '/home/deblack/tfg-doc'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+ 
