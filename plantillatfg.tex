@@ -74,13 +74,11 @@ en FPGAs mediante High Level Synthesis}
 \end{abstract}
 
 \begin{abstract}[spanish]
-   Actualmente las FPGA's juegan un papel importante en tareas dedicadas a una sola acci\'on,
-   ya que estas son mas ofrecen un mejor redimiento hacia este tipo de tareas. Por contra para
-   uso de FPGA's se necesitan conocimientos sobre el dise\~{n}o digital en lenguajes de descripc\'on
-   como Verilog o VHDL. No obstante la
+
 \end{abstract}
 
 \begin{abstract}[english]
+
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -97,63 +95,69 @@ en FPGAs mediante High Level Synthesis}
 
    En 1984, Ross Freeman ingeniero estadounidense el\'ectrico y Bernard Von Der
    Schmitt, los dos cofundadores de Xillinx, inventaron la FPGA, como resultado
-   de la union de diversas tecnologias y evolucion de los CPLD, haciendo a
-   Xillinx la mas populares en el desarollo de esta
-   teconlogia, que actualmente podemos encontrar en diversos sectores, como el
-   sector automovilistico, medico o big data, por su aplio rango de
+   de la uni\'on de diversas tecnologías y evolución de los CPLD, situando a
+   Xillinx como marca m\'as populares en el desarrollo de esta
+   tecnología, que actualmente podemos encontrar en diversos sectores, como el
+   sector automovilístico, médico o big data, por su amplio rango de
    aplicaci\'on.    
    
-   Estas juegan un papel importante en determinadas tareas dedicadas ya que
-   ofrecen un mayor redimiento en menor coste. Esto ha hecho que la FPGA sufra
-   un crecimiento en los ultimos a\~{n}os, pero el desarollo en estas necesita
-   de conocimientos especificos en dise\~{n}o de sistemas digitales y adaptarse
-   a los lenguajes de descripcion, como VHDL o Verilog.
+   Actualmente esta tecnología juegan un papel importante en determinadas tareas
+   dedicadas, ya que ofrecen un mayor rendimiento que las CPU's tradicionales. Esto ha hecho
+   que la FPGA sufra un crecimiento en los últimos a\~{n}os, pero el desarrollo
+   en estas necesita de conocimientos específicos en dise\~{n}o de sistemas
+   digitales y adaptarse a los lenguajes de descripción, como VHDL o Verilog.
+
+   A consecuencia de este crecimiento experimentado las distintas marcas
+   dedicadas al desarrollo de estas tecnolog\'ias crearon herramientas de desarrollo
+   en lenguajes de alto nivel para resolver este problema y as\'i mejorar la
+   gesti\'on del dise\~{n}o y el crecimiento de la productividad en el campo del
+   desarrollo de software para esta, High Level Synthesis o HLS, el cual aplica
+   una capa de abstracción en el proceso de desarrollo. El HLS se encarga de
+   interpretar la descripci\'on de estos lenguajes que despu\'es usara para la
+   creaci\'on de un sistema digital, el cual implementara el comportamiento
+   descrito mediante m\'aquinas de estado finito.
    
-   No obstante las distintas marcas dedicadas al desarollo de estas tecnologias
-   crearon herramientas de desarollo en lenguajes de alto nivel para resolver
-   este problema, mejorar la gestion del dise\~{n}o y el crecimiento de la
-   productividad de desarollo. 
-   
-   Esto se realiza mediante un proceso llamado High Level Synthesis o HLS, el cual
-   aplica una capa de abstracion en el desarollo, el cual se encarga
-   de interpretar la descripci\'on de estos lenguajes que despues usara
-   para la creaci\'on de un sistema digital, el cual implementara el
-   comportamiento descrito mediante maquinas de estado finitas. 
-   Y aunque conlleve a un apredizaje de todas sus
-   metodologias, directivas o librerias, seran mucho mas familiares y cercanas al desarollo en
-   lenguajes de alto nivel.
-   
-   Asi pues, la necesidad de tener un alto rango de conocimientos sobre esta
-   tecnologia, disminuye y hace que el mundo de las FPGA mas accesible a los
-   desarolladores, ya que solo necesitan como minimo conocimientos de C/C++ y
-   acatar unas normas de estilo de codigo.
+   Y aunque utilizar el high level synthesis conlleva un aprendizaje de todas sus
+   metodologías, directivas o librerías, serán mucho m\'as familiares y cercanas
+   al desarrollo en lenguajes de alto nivel. Así pues, la necesidad de tener un
+   alto rango de conocimientos sobre esta tecnología, disminuye y hace que el
+   mundo de las FPGA m\'as accesible a los desarrolladores, ya que solo necesitan
+   como mínimo conocimientos de C/C++ y acatar unas normas de estilo de c\'odigo.
 
 \newpage{}
 \section{Motivaci\'on}
+
+
 \section{Objetivos}
 
-   Como objetivo principal se pretende llegar a explicar las caracteristicas del 
-   High Level Synthesis desarollado por Xillinx por tal de poder definir una guia/pautas para la
-   definición e implementación de algoritmos escritos en C/C++. Finalmente se pretende llegar a poder
-   a adaptar un algoritmo dedicado para el funcionamiento en CPU's, a un algoritmo sintetizable y funcional
-   en una FPGA.
-   Para ello el objetivo principal esta subdividido en tres partes a conseguir.
-
+   Como objetivo principal se pretende llegar a explicar las caracteristicas del
+   High Level Synthesis desarollado por Xillinx por tal de poder definir una
+   guia/pautas para la definición e implementación de algoritmos escritos en
+   C/C++, asi finalmente poder adaptar un algoritmo dedicado para el
+   funcionamiento en CPU's, a un algoritmo sintetizable y funcional en una FPGA.
+   
+   Para ello el objetivo principal esta subdividido en tres partes a conseguir:
    \begin{itemize}
-      \item Desarollar una primera version sintetizable, la cual se centra en encontrar las
-            diferentes restricciones propuestas por el HLS de Xillinx.
-      \item Desarollar una version optimizada del problema, la cual se subdivide en dos partes:
+      \item Desarollar una primera version sintetizable, la cual se centra en
+      encontrar las diferentes restricciones propuestas por el HLS de Xillinx.
+      \item Desarollar una version optimizada del problema, la cual se subdivide
+      en dos partes:
       \begin{itemize}
-         \item Desarollo de una version con las directivas \#pragma para mejorar accesos 
-         a array o recorridos de estos.
-         \item Desarollo de una version con librerias propias del HLS para optimizar los 
-         recursos usados.
+         \item Desarollo de una version con las directivas \#pragma para mejorar
+         accesos a array o recorridos de estos.
+         \item Desarollo de una version con librerias propias del HLS para
+         optimizar los recursos usados.
       \end{itemize}
-      \item Desarollo de la version final, la cual incluye todo lo tratado anteriormente y comparar las difernetes versiones
-      con esta version, para ver hasta que punto mejora.  \end{itemize}
+      \item Desarollo de la version final, la cual incluye todo lo tratado
+      anteriormente y comparar las difernetes versiones con esta version, para
+      ver hasta que punto mejora.  
+   \end{itemize}
 
-\section{ Impacto esperado }
+\section{Impacto esperado}
+
+
 \section{Estructura de la mem\'oria}
+
 \section{ODS}
 
 ????? ????????????? ????????????? ????????????? ????????????? ????????????? 
@@ -165,24 +169,58 @@ en FPGAs mediante High Level Synthesis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                         CAPITOLS (tants com calga)                          %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Estado de arte}
 
+   Actualmente experimentamos un crecimiento tecnologico con aplicaciones de
+   cierta complejidad y costo computacional, donde las CPU's tradicionales no
+   puede cubrir, ya que estas tienen tiempos de latencias altos a comparacion de
+   las FPGA, y no podriamos cubrir la necesidad de una respuesta con un corto
+   periodo de tiempo.
+   
+   Por otra parte algunas de las tareas se suelen atribuirse a GPUs gracias a su
+   capacidad de llevar a cabo operaciones de computo en paralelo, situando a las
+   GPUs a ser el refuezo mas popular a la hora de realizar operaciones
+   matematicas costosas. No obstante esta popularidad ganada, no se debe a una
+   superioridad en computo sobre las FPGAs, sino por su facilidad a la hora de
+   configurar estas, ya que funcionan a partir de intrucciones que que son
+   interpretadas por la CPU, haciendo que su configuracion se base en lenguajes
+   de programacion mas comunes como C/C++, Python, Java, mientras que las FPGA
+   requieren de conocimientos mucho mas específicos sobre la tecnologia para
+   configurarlas a partir de lenguajes de descripcion VHDL y Verilog.   Todo
+   esto dejo a la FPGA en un papel secundario en este tipo de aplicaciones y
+   priorizar a metodos como la parelizacion mediante las GPUs como un recurso
+   mucho mas valorado incluso actualmente. Esta situacion llevo a valorar nuevas
+   formas de configurar las FPGAs, dando paso al High Level Synthesis, una
+   tecnologia que cambia completamente el flujo de diseño en la FPGAs, lo que
+   conllevo a un desarollo mucho mas versatil y preciso. 
+   
+   En la actualidad encontramos varias de estas herramientas de HLS, promovidas
+   por diferentes marcas como Intel con Intel High Level Synthesis Compiler o
+   Xillinx con VitisHLS, siendo esta ultima la herramienta analizada utilizada
+   en el trabajo presente.
+   
+   El VitisHLS funciona dando como entrada en C/C++ sintetizable con su
+   funcionamiento ya verificado, y esta a partir de la entrada construira un
+   circuito funcional ya configurado. No obstante este son los pasos minimos en
+   el flujo de diseño, ya que entre ellos encontramos varias configuraciones de
+   optimizacion en el entrada de codigo para manipular las diferentes entradas
+   en el RTL o disminiuir el numero de bloques usados.
+
+   
 \chapter{FPGA}
-????? ????????????? ????????????? ????????????? ????????????? ?????????????
-
+\section{Otras tecnologias}
 \section{FPGA vs Otras tecnologias}
 
-????? ????????????? ????????????? ????????????? ????????????? ?????????????
+\chapter{High Level Synthesis}
+\section{Register Transfer Level}
+\section{HLS vs RTL}
+\section{Vitis High-Level Synthesis}
 
 \chapter{Preparacion del entorno}
 
-????? ????????????? ????????????? ????????????? ????????????? ????????????? 
-
 \chapter{Realizar una codigo sintetizable}
 
-????? ????????????? ????????????? ????????????? ????????????? ?????????????
-
 \chapter{Optimizacion del codigo}
-
 \section{Directivas \#pragma}
 \section{Librerias HLS}
 \section{TMP Template metaprograming}
@@ -193,8 +231,7 @@ en FPGAs mediante High Level Synthesis}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Conclusions}
-
-????? ????????????? ????????????? ????????????? ????????????? ????????????? 
+https://www.legupcomputing.com/blog/index.php/benefits-of-high-level-synthesis-for-fpga-design/
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                BIBLIOGRAFIA                                 %

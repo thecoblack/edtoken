@@ -1,3 +1,16 @@
 {
-	"makefile.extensionOutputFolder": "./.vscode"
+	"makefile.extensionOutputFolder": "./.vscode",
+	"cSpell.language": ",es",
+	"cSpell.words": [
+		"cpld"
+	],
+	"spellright.language": [
+		"es-ES",
+		"es"
+	],
+	"spellright.documentTypes": [
+		"markdown",
+		"plaintext"
+	],
+	"cSpell.enabled": true
 }
