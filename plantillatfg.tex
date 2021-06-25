@@ -15,7 +15,7 @@
 %                                                                             %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[11pt,catalan,listoffigures,listoftables]{tfgetsinf}
+\documentclass[11pt,spanish,listoffigures,listoftables]{tfgetsinf}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                     CODIFICACIO DEL FITXER FONT                             %
@@ -208,7 +208,78 @@ en FPGAs mediante High Level Synthesis}
 
    
 \chapter{FPGA}
-\section{Otras tecnologias}
+
+  Dentro del mercado de los circuitos integrados encontramos varios tipos de
+  dispositivos, abarcando desde circuitos electronicos diseñados expresamente
+  para la problematica a dispositivos reprogramable que se adaptan en funcion de
+  las necesidades. Dentro de las reprogramables encontramos la tecnologia FPGA o
+  Field Programmable Gate Array conformada por diversos bloques logicos
+  configurables que pueden ser modificables dependiendo la necesidad del diseño
+  y como se ha Introducido anteriormente esta se encuentras implatada en muchos
+  sectores de la industria.
+  
+  Cuanto a su configuracion, estas utilizan lenguajes de descripcion para
+  implementar un diseño, normalment estos lenguajes de descripcion suelen ser
+  VHDL o Verilog, los cuales luego son transferidos a la FPGA mediante el un
+  proceso que genera un archivo Bitstream. Una vez generado, el Bitstream 
+  contiene todo lo necesario para configurar la FPGA, la logica descrita, las
+  rutas para llegar a los bloques logicos y los valores iniciales. 
+  
+  Si profundizamos en la arquitectura, esta se compone principalmente de bloques
+  logicos o CLB, los cuales esta interconectados dependiendo del comportamiento
+  descrito por el Bitstream. No obstante esta aun necesitan de una forma de
+  comunicar su logica con el exterior de la FPGA y aqui entran en juego la
+  celdas de entrada y salida o IOB. Finalmente con el enrutado de los CLBs y los
+  IOBs obtenmos una matriz de enrutado que puede ser reprogramada, otrogando a
+  la FPGA una gran flexibilidad en cuando a las especifiaciones del diseño, lo
+  que permite evoluciónar a la par con la problematica encargada de tratar.
+
+  \begin{figure}[h]
+   \centering
+   \includegraphics[width=8cm]{img/fpga-chapter/fpga_introduction.png}
+   \caption{Arquitectura FPGA simplificada}
+   \label{fig:fpga_arch}
+  \end{figure}
+
+\section{Arquitectura de la FPGA}
+
+  Como se ha mencionado antes la FPGA esta compuesta poor varios componentes a parte de los
+  mencionados anteriormente. Esta se compone de los siguientes: 
+
+  \subsection{Cofigurable Logic Block}
+      Los bloques logicos son los que implementan las funciones logicas a necesidad del diseño
+      y estan compuestos por diferentes componenetes para despeñar la funcion necesaria. El numero
+      componenetes de estos pueden variar dependiendo de las caracteristicas del CLB, pero en general
+      consiste en una o varios LUT's cuyas salidas se encuentran multiplexadas y son tratadas dependiendo
+      de unos parametros de configuracion del CLB.
+
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=8cm]{img/fpga-chapter/FPGA_cell_example.png}
+         \caption{Estructura general de un bloque logico}
+         \label{fig:clb_arch}
+      \end{figure}
+
+      Su arquitectura mas general, como podemos ver en \ref{fig:clb_arch}, se compone de:
+
+      \begin{itemize}
+         \item Look-up tables: Esta determina una salida a partir de una tabla y por tanto ser\'a la
+         que describa el comportamiento logico.  
+         \item Full adder:
+         
+         \item Flip-Flop:
+      \end{itemize}
+
+      Finalmente el numero de elementos dentro del bloque logico dependera sobre
+      todo, de las caracteristicas del producto.
+
+  \subsection{Input/Output Block}
+  \subsection{Block Random Access Memory}
+  \subsection{Enrutado}
+  \subsection{Digital signal processing}
+
+
+\section{Arquitecturas heterogenias}
 \section{FPGA vs Otras tecnologias}
 
 \chapter{High Level Synthesis}
