@@ -14,23 +14,26 @@
 \BOOKMARK [2][-]{subsection.3.1.2}{Input/Output Block}{section.3.1}% 14
 \BOOKMARK [2][-]{subsection.3.1.3}{Block Random Access Memory}{section.3.1}% 15
 \BOOKMARK [2][-]{subsection.3.1.4}{Enrutado}{section.3.1}% 16
-\BOOKMARK [2][-]{subsection.3.1.5}{Digital signal processing}{section.3.1}% 17
-\BOOKMARK [1][-]{section.3.2}{Arquitecturas heterogenias}{chapter.3}% 18
-\BOOKMARK [1][-]{section.3.3}{FPGA vs Otras tecnologias}{chapter.3}% 19
-\BOOKMARK [0][-]{chapter.4}{High Level Synthesis}{}% 20
-\BOOKMARK [1][-]{section.4.1}{Register Transfer Level}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.2}{HLS vs RTL}{chapter.4}% 22
-\BOOKMARK [1][-]{section.4.3}{Vitis High-Level Synthesis}{chapter.4}% 23
-\BOOKMARK [0][-]{chapter.5}{Preparacion del entorno}{}% 24
-\BOOKMARK [0][-]{chapter.6}{Realizar una codigo sintetizable}{}% 25
-\BOOKMARK [0][-]{chapter.7}{Optimizacion del codigo}{}% 26
-\BOOKMARK [1][-]{section.7.1}{Directivas \043pragma}{chapter.7}% 27
-\BOOKMARK [1][-]{section.7.2}{Librerias HLS}{chapter.7}% 28
-\BOOKMARK [1][-]{section.7.3}{TMP Template metaprograming}{chapter.7}% 29
-\BOOKMARK [0][-]{chapter.8}{Version Final: Red neuronal}{}% 30
-\BOOKMARK [0][-]{chapter.9}{Conclusions}{}% 31
-\BOOKMARK [0][-]{chapter*.6}{Bibliograf\355a}{}% 32
-\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 33
-\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 34
-\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 35
-\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 36
+\BOOKMARK [1][-]{section.3.2}{Arquitecturas heterogenias}{chapter.3}% 17
+\BOOKMARK [2][-]{subsection.3.2.1}{CPU}{section.3.2}% 18
+\BOOKMARK [2][-]{subsection.3.2.2}{GPU}{section.3.2}% 19
+\BOOKMARK [2][-]{subsection.3.2.3}{ASIC}{section.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.2.4}{CPLD}{section.3.2}% 21
+\BOOKMARK [1][-]{section.3.3}{FPGA vs Otras tecnologias}{chapter.3}% 22
+\BOOKMARK [0][-]{chapter.4}{High Level Synthesis}{}% 23
+\BOOKMARK [1][-]{section.4.1}{Register Transfer Level}{chapter.4}% 24
+\BOOKMARK [1][-]{section.4.2}{HLS vs RTL}{chapter.4}% 25
+\BOOKMARK [1][-]{section.4.3}{Vitis High-Level Synthesis}{chapter.4}% 26
+\BOOKMARK [0][-]{chapter.5}{Preparacion del entorno}{}% 27
+\BOOKMARK [0][-]{chapter.6}{Realizar una codigo sintetizable}{}% 28
+\BOOKMARK [0][-]{chapter.7}{Optimizacion del codigo}{}% 29
+\BOOKMARK [1][-]{section.7.1}{Directivas \043pragma}{chapter.7}% 30
+\BOOKMARK [1][-]{section.7.2}{Librerias HLS}{chapter.7}% 31
+\BOOKMARK [1][-]{section.7.3}{TMP Template metaprograming}{chapter.7}% 32
+\BOOKMARK [0][-]{chapter.8}{Version Final: Red neuronal}{}% 33
+\BOOKMARK [0][-]{chapter.9}{Conclusions}{}% 34
+\BOOKMARK [0][-]{chapter*.8}{Bibliograf\355a}{}% 35
+\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 36
+\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 37
+\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 38
+\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 39

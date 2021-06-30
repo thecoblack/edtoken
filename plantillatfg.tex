@@ -96,26 +96,26 @@ en FPGAs mediante High Level Synthesis}
    En 1984, Ross Freeman ingeniero estadounidense el\'ectrico y Bernard Von Der
    Schmitt, los dos cofundadores de Xillinx, inventaron la FPGA, como resultado
    de la uni\'on de diversas tecnologías y evolución de los CPLD, situando a
-   Xillinx como marca m\'as populares en el desarrollo de esta
-   tecnología, que actualmente podemos encontrar en diversos sectores, como el
-   sector automovilístico, médico o big data, por su amplio rango de
-   aplicaci\'on.    
+   Xillinx como marca m\'as populares en el desarrollo de esta tecnología, que
+   actualmente podemos encontrar en diversos sectores, como el sector
+   automovilístico, médico o big data, por su amplio rango de aplicaci\'on.    
    
    Actualmente esta tecnología juegan un papel importante en determinadas tareas
-   dedicadas, ya que ofrecen un mayor rendimiento que las CPU's tradicionales. Esto ha hecho
-   que la FPGA sufra un crecimiento en los últimos a\~{n}os, pero el desarrollo
-   en estas necesita de conocimientos específicos en dise\~{n}o de sistemas
-   digitales y adaptarse a los lenguajes de descripción, como VHDL o Verilog.
+   dedicadas, ya que ofrecen un mayor rendimiento que las CPU's tradicionales.
+   Esto ha hecho que la FPGA sufra un crecimiento en los últimos a\~{n}os, pero
+   el desarrollo en estas necesita de conocimientos específicos en dise\~{n}o de
+   sistemas digitales y adaptarse a los lenguajes de descripción, como VHDL o
+   Verilog.
 
    A consecuencia de este crecimiento experimentado las distintas marcas
-   dedicadas al desarrollo de estas tecnolog\'ias crearon herramientas de desarrollo
-   en lenguajes de alto nivel para resolver este problema y as\'i mejorar la
-   gesti\'on del dise\~{n}o y el crecimiento de la productividad en el campo del
-   desarrollo de software para esta, High Level Synthesis o HLS, el cual aplica
-   una capa de abstracción en el proceso de desarrollo. El HLS se encarga de
-   interpretar la descripci\'on de estos lenguajes que despu\'es usara para la
-   creaci\'on de un sistema digital, el cual implementara el comportamiento
-   descrito mediante m\'aquinas de estado finito.
+   dedicadas al desarrollo de estas tecnolog\'ias crearon herramientas de
+   desarrollo en lenguajes de alto nivel para resolver este problema y as\'i
+   mejorar la gesti\'on del dise\~{n}o y el crecimiento de la productividad en
+   el campo del desarrollo de software para esta, High Level Synthesis o HLS, el
+   cual aplica una capa de abstracción en el proceso de desarrollo. El HLS se
+   encarga de interpretar la descripci\'on de estos lenguajes que despu\'es
+   usara para la creaci\'on de un sistema digital, el cual implementara el
+   comportamiento descrito mediante m\'aquinas de estado finito.
    
    Y aunque utilizar el high level synthesis conlleva un aprendizaje de todas sus
    metodologías, directivas o librerías, serán mucho m\'as familiares y cercanas
@@ -127,6 +127,7 @@ en FPGAs mediante High Level Synthesis}
 \newpage{}
 \section{Motivaci\'on}
 
+   En la actualidad el crecimiento de esta tecnologia y
 
 \section{Objetivos}
 
@@ -154,7 +155,6 @@ en FPGAs mediante High Level Synthesis}
    \end{itemize}
 
 \section{Impacto esperado}
-
 
 \section{Estructura de la mem\'oria}
 
@@ -184,7 +184,7 @@ en FPGAs mediante High Level Synthesis}
    superioridad en computo sobre las FPGAs, sino por su facilidad a la hora de
    configurar estas, ya que funcionan a partir de intrucciones que que son
    interpretadas por la CPU, haciendo que su configuracion se base en lenguajes
-   de programacion mas comunes como C/C++, Python, Java, mientras que las FPGA
+   de programacion más comunes como C/C++, Python, Java, mientras que las FPGA
    requieren de conocimientos mucho mas específicos sobre la tecnologia para
    configurarlas a partir de lenguajes de descripcion VHDL y Verilog.   Todo
    esto dejo a la FPGA en un papel secundario en este tipo de aplicaciones y
@@ -243,15 +243,16 @@ en FPGAs mediante High Level Synthesis}
 
 \section{Arquitectura de la FPGA}
 
-  Como se ha mencionado antes la FPGA esta compuesta poor varios componentes a parte de los
-  mencionados anteriormente. Esta se compone de los siguientes: 
+  Como se ha mencionado antes la FPGA esta compuesta poor varios componentes a
+  parte de los mencionados anteriormente. Esta se compone de los siguientes: 
 
   \subsection{Cofigurable Logic Block}
-      Los bloques logicos son los que implementan las funciones logicas a necesidad del diseño
-      y estan compuestos por diferentes componenetes para despeñar la funcion necesaria. El numero
-      componenetes de estos pueden variar dependiendo de las caracteristicas del CLB, pero en general
-      consiste en una o varios LUT's cuyas salidas se encuentran multiplexadas y son tratadas dependiendo
-      de unos parametros de configuracion del CLB.
+      Los bloques logicos son los que implementan las funciones logicas a
+      necesidad del diseño y estan compuestos por diferentes componenetes para
+      despeñar la funcion necesaria. El numero componenetes de estos pueden
+      variar dependiendo de las caracteristicas del CLB, pero en general
+      consiste en una o varios LUT's cuyas salidas se encuentran multiplexadas y
+      son tratadas dependiendo de unos parametros de configuracion del CLB.
 
       \begin{figure}[h]
          \centering
@@ -263,23 +264,110 @@ en FPGAs mediante High Level Synthesis}
       Su arquitectura mas general, como podemos ver en \ref{fig:clb_arch}, se compone de:
 
       \begin{itemize}
-         \item Look-up tables: Esta determina una salida a partir de una tabla y por tanto ser\'a la
-         que describa el comportamiento logico.  
+         \item Look-up tables: Esta determina una salida a partir de una tabla y
+         por tanto ser\'a la que describa el comportamiento logico, no obstante
+         el tamaño de esta variara dependiendo de las caracteristicas
+         necesarias.  
          \item Full adder:
          
-         \item Flip-Flop:
+         \item Flip-Flop tipo D: De toda la familia existente de los biestables,
+         este tipo suele ser útil cuando hablamos de almacenar información, no
+         obstante esta informacion será unicamente un bit.
       \end{itemize}
 
       Finalmente el numero de elementos dentro del bloque logico dependera sobre
       todo, de las caracteristicas del producto.
 
   \subsection{Input/Output Block}
-  \subsection{Block Random Access Memory}
-  \subsection{Enrutado}
-  \subsection{Digital signal processing}
+  
+      Esta es la parte encargada de comunicar la FPGA con el exterior y por
+      tanto podrán tanto como enviar o recibir señales o realizar las dos
+      acciones. Los bloque IOB's son bloques que tiene un alto rango de
+      adaptabilidad al poder trabjar con distintas tensiones o estandares
+      digitales, haciendo que la FPGA pueda adaptarse comodamente a las
+      necesidades.  Cuanto a su numero, existe un bloque de estos por cada
+      terminal de I/O del FPGA, lo que posibilita la configuracion independiente
+      de cada terminal y la existencia de un buffer unico para cada uno de
+      ellos.
 
+  \subsection{Block Random Access Memory}
+      
+      Los bloques de RAM, son elementos dedicados al almacenadoj de datos y como
+      su propio nombre indica, la encontramos en forma de bloques. Estos bloques
+      son bastante flexibles y se adaptan a las necesidades del diseño pudiendo
+      configura estos como memoria RAM, ROM o FIFO.
+      
+      La BRAM es compuesta en parte por LUT's, ya que estas como se ha comentado
+      anteriormente contienen tablas de consulta, convirtiendola en una pequeña
+      unidad de almacenamiento, la cual se configura al inicio de la ejecucion.
+      Dotando a la BRAM de pequeñas memorias muy rapidas, no obstante estas al
+      igual que la RAM tradicional, para acceder a ellas se necesitara la ruta
+      donde se encuentra.
+      
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=8cm]{img/fpga-chapter/shiftRegister.png}
+         \caption{Estructura de un registro de desplazamientos}
+         \label{fig:shift_register}
+      \end{figure}
+         
+      El papel del enrutado en estas memorias es dado a las estructuras de
+      desplazamiento de registros, donde encontramos al igual que un CLB un
+      numero de Flip-Flops tipo D, lo cual dependerá de la grandaria de la
+      memoria. Dotando estas a la memoria BRAM una logica computacional para
+      encontrar la ruta del LUT dentro del bloque.
+
+  \subsection{Enrutado}
+
+      Los enrutados son los encargados de conectar las distintas logicas entre
+      si, creando los difernetes caminos para llegar de los diferentes bloques.
+      Las conexiones entre si esta hechas mediante varios canales, no obstante
+      entre para efecutar la conexion entre ellos encontramos un nuevo tipo de
+      bloque, en este caso los bloques  de conexiones.
+      
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=8cm]{img/fpga-chapter/routing.png}
+         \caption{Estructura simplificada del enrutado en una FPGA}
+         \label{fig:routing_fpga}
+      \end{figure}
+
+      Estos bloques contienen diferentes inputs, siendo estos los encargados de
+      redirigir el output mediante la ruta indicada para llegar al siguiente
+      bloque, ya sea otro bloque de conexion o los tratados anteriormente. No
+      obstante, como se puede ver en la imagen \ref{fig:routing_fpga} dentro de
+      los bloques de conexiones encontramos swiches, que son los encargados De
+      guiar la señal por dentro del bloque de conexiones.
 
 \section{Arquitecturas heterogenias}
+   Actualmente existend diferentes tecnologias diferentes a las FPGA que compiten
+   en su campo, estas son la siguientes:
+
+   \subsection{CPU}
+      Actualmente esta es la arquitectura mas conocida y la mas antigua de todas las
+      que comentaremos. Su trabajo principalmente es la coordinacion de los diferentes
+      elementos que conforman actualmente una computadora. Encontramos varios tipos dependiendo,
+      del mercado al que vayan destinado y se componen por un unico circuito integrado o varios
+      CPU's en un mismo circuito como es el caso de los procesadores multinucleo.
+
+      Este funciona a base de la interpretacion de intrucciones, para realizar las diferentes 
+      acciones ya sean, operaciones aritmeticas, manipurlacion de registros, deconficacion de estas
+      mismas intrucciones etc. Cuanto a su arquitectura mas simple, se compone de:
+      
+      \begin{itemize}
+         \item Registro internos: Encargada de guardar los distintos registros,
+         tanto los accesibles, como los no accesibles.
+         \item Unidad aritmetico logica: Como su nombre indica realiza las
+         operaciones aritméticas y lógicas.
+         \item Unidad de control: Se encarga de dirgir la informacion entre los
+         registros de la CPU, seguidamente esta conecta con la unidad aritméto
+         lógica las intrucciones que se han extraido.
+      \end{itemize}
+   \subsection{GPU}
+
+
+   \subsection{ASIC}
+   \subsection{CPLD}
 \section{FPGA vs Otras tecnologias}
 
 \chapter{High Level Synthesis}
