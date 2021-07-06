@@ -17,8 +17,8 @@
 \BOOKMARK [1][-]{section.3.2}{Arquitecturas heterogenias}{chapter.3}% 17
 \BOOKMARK [2][-]{subsection.3.2.1}{CPU}{section.3.2}% 18
 \BOOKMARK [2][-]{subsection.3.2.2}{GPU}{section.3.2}% 19
-\BOOKMARK [2][-]{subsection.3.2.3}{ASIC}{section.3.2}% 20
-\BOOKMARK [2][-]{subsection.3.2.4}{CPLD}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.3}{CPLD}{section.3.2}% 20
+\BOOKMARK [2][-]{subsection.3.2.4}{ASIC}{section.3.2}% 21
 \BOOKMARK [1][-]{section.3.3}{FPGA vs Otras tecnologias}{chapter.3}% 22
 \BOOKMARK [0][-]{chapter.4}{High Level Synthesis}{}% 23
 \BOOKMARK [1][-]{section.4.1}{Register Transfer Level}{chapter.4}% 24
@@ -29,11 +29,17 @@
 \BOOKMARK [0][-]{chapter.7}{Optimizacion del codigo}{}% 29
 \BOOKMARK [1][-]{section.7.1}{Directivas \043pragma}{chapter.7}% 30
 \BOOKMARK [1][-]{section.7.2}{Librerias HLS}{chapter.7}% 31
-\BOOKMARK [1][-]{section.7.3}{TMP Template metaprograming}{chapter.7}% 32
-\BOOKMARK [0][-]{chapter.8}{Version Final: Red neuronal}{}% 33
-\BOOKMARK [0][-]{chapter.9}{Conclusions}{}% 34
-\BOOKMARK [0][-]{chapter*.8}{Bibliograf\355a}{}% 35
-\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 36
-\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 37
-\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 38
-\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 39
+\BOOKMARK [2][-]{subsection.7.2.1}{Arbitrary Precision Data Types}{section.7.2}% 32
+\BOOKMARK [2][-]{subsection.7.2.2}{HLS Math}{section.7.2}% 33
+\BOOKMARK [2][-]{subsection.7.2.3}{HLS Video}{section.7.2}% 34
+\BOOKMARK [2][-]{subsection.7.2.4}{HLS IP}{section.7.2}% 35
+\BOOKMARK [2][-]{subsection.7.2.5}{HLS Linear Algebra}{section.7.2}% 36
+\BOOKMARK [2][-]{subsection.7.2.6}{HLS DSP}{section.7.2}% 37
+\BOOKMARK [1][-]{section.7.3}{TMP o Template metaprograming}{chapter.7}% 38
+\BOOKMARK [0][-]{chapter.8}{Version Final: Red neuronal}{}% 39
+\BOOKMARK [0][-]{chapter.9}{Conclusions}{}% 40
+\BOOKMARK [0][-]{chapter*.9}{Bibliograf\355a}{}% 41
+\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 42
+\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 43
+\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 44
+\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 45

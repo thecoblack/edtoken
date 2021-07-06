@@ -244,9 +244,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/mathpazo/zplmr7t.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/mathpazo/zplmr7t.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/mathpazo/zplmr7t.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/palatino/pplbc8t.tfm
-OUTPUT /home/deblack/tfg-doc/plantillatfg.toc
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/palatino/pplbc8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/palatino/pplb8r.tfm
+OUTPUT /home/deblack/tfg-doc/plantillatfg.toc
 INPUT /home/deblack/tfg-doc/plantillatfg.lof
 INPUT /home/deblack/tfg-doc/plantillatfg.lof
 OUTPUT /home/deblack/tfg-doc/plantillatfg.lof
@@ -281,6 +281,12 @@ INPUT /home/deblack/tfg-doc/img/fpga-chapter/shiftRegister.png
 INPUT /home/deblack/tfg-doc/img/fpga-chapter/routing.png
 INPUT /home/deblack/tfg-doc/img/fpga-chapter/routing.png
 INPUT /home/deblack/tfg-doc/img/fpga-chapter/routing.png
+INPUT /home/deblack/tfg-doc/img/fpga-chapter/standar_cell.png
+INPUT /home/deblack/tfg-doc/img/fpga-chapter/standar_cell.png
+INPUT /home/deblack/tfg-doc/img/fpga-chapter/standar_cell.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/palatino/pplr8t.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/palatino/pplr8t.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/palatino/pplr8r.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/palatino/pplri8t.tfm
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd

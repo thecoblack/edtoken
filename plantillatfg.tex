@@ -268,7 +268,7 @@ en FPGAs mediante High Level Synthesis}
          por tanto ser\'a la que describa el comportamiento logico, no obstante
          el tamaño de esta variara dependiendo de las caracteristicas
          necesarias.  
-         \item Full adder:
+         \item Full adder: %//TODO Full Adder
          
          \item Flip-Flop tipo D: De toda la familia existente de los biestables,
          este tipo suele ser útil cuando hablamos de almacenar información, no
@@ -344,15 +344,17 @@ en FPGAs mediante High Level Synthesis}
    en su campo, estas son la siguientes:
 
    \subsection{CPU}
-      Actualmente esta es la arquitectura mas conocida y la mas antigua de todas las
-      que comentaremos. Su trabajo principalmente es la coordinacion de los diferentes
-      elementos que conforman actualmente una computadora. Encontramos varios tipos dependiendo,
-      del mercado al que vayan destinado y se componen por un unico circuito integrado o varios
-      CPU's en un mismo circuito como es el caso de los procesadores multinucleo.
+      Actualmente esta es la arquitectura mas conocida y la mas antigua de todas
+      las que comentaremos. Su trabajo principalmente es la coordinacion de los
+      diferentes elementos que conforman actualmente una computadora, lo que nos
+      lleva a encotrar varios tipos dependiendo, del mercado al que vayan
+      destinado y se componen por un unico circuito integrado o varios CPU's en
+      un mismo circuito como es el caso de los procesadores multinucleo.
 
-      Este funciona a base de la interpretacion de intrucciones, para realizar las diferentes 
-      acciones ya sean, operaciones aritmeticas, manipurlacion de registros, deconficacion de estas
-      mismas intrucciones etc. Cuanto a su arquitectura mas simple, se compone de:
+      Este funciona a base de la interpretacion de intrucciones, para realizar
+      las diferentes acciones ya sean, operaciones aritmeticas, manipurlacion de
+      registros, deconficacion de estas mismas intrucciones etc. Cuanto a su
+      arquitectura mas simple, se compone de:
       
       \begin{itemize}
          \item Registro internos: Encargada de guardar los distintos registros,
@@ -363,11 +365,75 @@ en FPGAs mediante High Level Synthesis}
          registros de la CPU, seguidamente esta conecta con la unidad aritméto
          lógica las intrucciones que se han extraido.
       \end{itemize}
+
    \subsection{GPU}
-
-
-   \subsection{ASIC}
    \subsection{CPLD}
+   \subsection{ASIC}
+
+     Dentro de todas las arquitecturas desarolladas en este capitulo, esta es la unica
+     la cual entramos que esta hecha para una tarea especifica y no esta pensada para 
+     propositos generales. Como arquitectura encontramos varias de ellas:
+
+      \begin{itemize}
+
+         \item Dise\~{n}o basado en Celdas Estándares: El diseño ASIC basado en
+         celdas estandares, se caracteriza por tener su celdas logicas como
+         puertas logicas multiplexores o flip-flops ya prediseñadas por los
+         diseñadores de la propia ASIC, lo que con lleva a tener diferentes
+         configuraciones guardadas en forma de librerias. Esto se conoce como
+         "standard cell library".
+
+         \begin{figure}[h]
+            \centering
+            \includegraphics[width=8cm]{img/fpga-chapter/standar_cell.png}
+            \caption{Diseño basado en Celdas Estándares}
+            \label{fig:standard_cell}
+         \end{figure}
+
+         Este diseño ASIC, como se puede ver en \ref{fig:standard_cell}, esta
+         compuesto por dos componentes generales, la celda estandar es un bloque
+         organizado en celdas estandarizadas en filas y su funcionamiento
+         dependera de las "standar cell libraries". Por otra parte encontramos
+         los bloque fijos o C-BIC, estos son capas customizadas donde el
+         diseñador puede colocar otras celdas estandares.
+         
+         \item Diseño basado en Matriz de Puertas: En este diseño, la placa
+         ASIC, viene predefinida por un numero de transistores en una oblea de
+         silicio, en esta el diseñador no puede cambiar el lugar donde se alojan
+         estos. Esto acaba formando pequeños patrones repetitivos de "base
+         array" los cuales son patrones de matrizes logicas. Cuanto a la
+         interconexion de estas, es donde el diseñador tiene la responsabilidad
+         de conectar usando capas de metal y asi obtener el funcionamiento
+         logico deseado. 
+
+         Dentro del diseño basado en Matrizes de Puertas, encontramos tres tipos:
+
+         \begin{itemize}
+            \item{Channeled Gate Array}: Se caracteriza por tener un espacio
+            fijos entre filas de transistores.
+
+            \item{Channel Less Gate Array}: Al contrario que en el diseño
+            comentado anteriormente, no deja espacio libre para el enrutado de los
+            transistores. Por tanto el enrutado pasara a ser un enrutado
+            personalizado entre el metal y el transistor.
+
+            \item{Structured Gate Array}: A diferencia de los otros tipos de
+            estructuracion, que principalmente se centraban en la interconexion de
+            los transistores, se centra en integrar tambi\'en un bloque y asi poder
+            tener bloques configurables en el diseño. 
+         \end{itemize}
+         
+         \item Diseño "Full Custom" o hecho a medida: El diseño "Full Custom",
+         esta destinado a una accion en especifica y por tanto todas sus
+         interconexiones y capas son personalizadas para la problematica a
+         tratar. Esto conlleva a que el propio diseñador no pueda cambiar la
+         interconexion de estos, ya que sino obtendriamos un resultado diferente
+         al dado, haciendo que el dieñador se centre enteramente la optimizacion
+         de este, construyendo distintos circuitos o optimizando las celdas de
+         memoria.
+         
+      \end{itemize}
+
 \section{FPGA vs Otras tecnologias}
 
 \chapter{High Level Synthesis}
@@ -378,13 +444,18 @@ en FPGAs mediante High Level Synthesis}
 \chapter{Preparacion del entorno}
 
 \chapter{Realizar una codigo sintetizable}
-
 \chapter{Optimizacion del codigo}
 \section{Directivas \#pragma}
 \section{Librerias HLS}
-\section{TMP Template metaprograming}
-
+      \subsection{Arbitrary Precision Data Types}
+      \subsection{HLS Math}
+      \subsection{HLS Video}
+      \subsection{HLS IP}
+      \subsection{HLS Linear Algebra}
+      \subsection{HLS DSP}
+\section{TMP o Template metaprograming}
 \chapter{Version Final: Red neuronal}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                 CONCLUSIONS                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
