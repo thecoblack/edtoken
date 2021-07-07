@@ -126,9 +126,6 @@ en FPGAs mediante High Level Synthesis}
 
 \newpage{}
 \section{Motivaci\'on}
-
-   En la actualidad el crecimiento de esta tecnologia y
-
 \section{Objetivos}
 
    Como objetivo principal se pretende llegar a explicar las caracteristicas del
@@ -156,11 +153,19 @@ en FPGAs mediante High Level Synthesis}
 
 \section{Impacto esperado}
 
+   Actuamente el uso de las FPGA crece, ya que estas son perfectas en algunos
+   campos en que el coste/computacion es crucial. Por otra parte incorporarse en
+   este mundo, y aunque con la aparicion del los HLS facilite mucho mas esto, no
+   deja de ser necesario tener ciertos conocimientos y metodologías para llegar
+   a tener un codigo util y sintetizable.  Por tanto con este trabajo se espera
+   acercar lo maximo posible el HLS y facilitar la incorporacion a esta mediante
+   una guia/pautas que ayudaran a entender el comportamiento de esta y asi poder
+   empezar de zero mas facilmente.
+
 \section{Estructura de la mem\'oria}
 
 \section{ODS}
 
-????? ????????????? ????????????? ????????????? ????????????? ????????????? 
 
 %\section{Notes bibliografiques} %%%%% Opcional
 
@@ -243,7 +248,7 @@ en FPGAs mediante High Level Synthesis}
 
 \section{Arquitectura de la FPGA}
 
-  Como se ha mencionado antes la FPGA esta compuesta poor varios componentes a
+  Como se ha mencionado antes la FPGA esta compuesta por varios componentes a
   parte de los mencionados anteriormente. Esta se compone de los siguientes: 
 
   \subsection{Cofigurable Logic Block}
@@ -264,13 +269,13 @@ en FPGAs mediante High Level Synthesis}
       Su arquitectura mas general, como podemos ver en \ref{fig:clb_arch}, se compone de:
 
       \begin{itemize}
-         \item Look-up tables: Esta determina una salida a partir de una tabla y
+         \item \textbf{Look-up tables:} Esta determina una salida a partir de una tabla y
          por tanto ser\'a la que describa el comportamiento logico, no obstante
          el tamaño de esta variara dependiendo de las caracteristicas
          necesarias.  
-         \item Full adder: %//TODO Full Adder
+         \item \textbf{Full adder:} %//TODO Full Adder
          
-         \item Flip-Flop tipo D: De toda la familia existente de los biestables,
+         \item \textbf{Flip-Flop tipo D:} De toda la familia existente de los biestables,
          este tipo suele ser útil cuando hablamos de almacenar información, no
          obstante esta informacion será unicamente un bit.
       \end{itemize}
@@ -340,8 +345,18 @@ en FPGAs mediante High Level Synthesis}
       guiar la señal por dentro del bloque de conexiones.
 
 \section{Arquitecturas heterogenias}
-   Actualmente existend diferentes tecnologias diferentes a las FPGA que compiten
-   en su campo, estas son la siguientes:
+   Con el tiempo la necesidad de adaptabilidad en los diseños gana importancia,
+   ya que en la actualidad las nuevas tecnologias se incorporan a la vida
+   diaria.  Esto ha dado como resultado una cantidad de nuevas tecnologias
+   diseñadas para suplir esta necesidad, llegando a encontrar distintas
+   tecnologias en varios sectores, donde las distintas arquitecturas son
+   implementadas por el diseñador segun el proposito y coste de esta.  
+
+   Dependiendo de la arquitectura encontramos, diseños creados expresamente para
+   la problematica, diseños dirigidos a ser altamente configurable y flexibles
+   con el cambio o diseños que intenta incorporar ambos en cierta medida a
+   cambio de sacrificar otras caracteristicas. Algunas de estas arquitecturas
+   son:
 
    \subsection{CPU}
       Actualmente esta es la arquitectura mas conocida y la mas antigua de todas
@@ -357,20 +372,26 @@ en FPGAs mediante High Level Synthesis}
       arquitectura mas simple, se compone de:
       
       \begin{itemize}
-         \item Registro internos: Encargada de guardar los distintos registros,
+         \item \textbf{Registro internos:} Encargada de guardar los distintos registros,
          tanto los accesibles, como los no accesibles.
-         \item Unidad aritmetico logica: Como su nombre indica realiza las
+         \item \textbf{Unidad aritmetico logica:} Como su nombre indica realiza las
          operaciones aritméticas y lógicas.
-         \item Unidad de control: Se encarga de dirgir la informacion entre los
+         \item \textbf{Unidad de control:} Se encarga de dirgir la informacion entre los
          registros de la CPU, seguidamente esta conecta con la unidad aritméto
          lógica las intrucciones que se han extraido.
       \end{itemize}
 
    \subsection{GPU}
 
+      Juntamente con la unidad central de procesamiento, esta es una de las
+      tecnologias mas populares actualmente y aunque pueda llegar a ser similar,
+      esta tiene diferentes propositos y funcionamientos, los cuales en un
+      principio fuero mostrar por pantalla graficos hasta ahora, las cuales son
+      buscadas para el procesamiento paralelo.
 
-   
-   \subsection{CPLD}
+      La arquitectura de la GPU a dia de hoy se encuentra segmentada con
+      multiples nucleos optimizados para la ejecucion de procesos en paralelo.
+
    \subsection{ASIC}
 
      Dentro de todas las arquitecturas desarolladas en este capitulo, esta es la unica
@@ -379,7 +400,7 @@ en FPGAs mediante High Level Synthesis}
 
       \begin{itemize}
 
-         \item Dise\~{n}o basado en Celdas Estándares: El diseño ASIC basado en
+         \item \textbf{Dise\~{n}o basado en Celdas Estándares:} El diseño ASIC basado en
          celdas estandares, se caracteriza por tener su celdas logicas como
          puertas logicas multiplexores o flip-flops ya prediseñadas por los
          diseñadores de la propia ASIC, lo que con lleva a tener diferentes
@@ -400,7 +421,7 @@ en FPGAs mediante High Level Synthesis}
          los bloque fijos o C-BIC, estos son capas customizadas donde el
          diseñador puede colocar otras celdas estandares.
          
-         \item Diseño basado en Matriz de Puertas: En este diseño, la placa
+         \item \textbf{Diseño basado en Matriz de Puertas:} En este diseño, la placa
          ASIC, viene predefinida por un numero de transistores en una oblea de
          silicio, en esta el diseñador no puede cambiar el lugar donde se alojan
          estos. Esto acaba formando pequeños patrones repetitivos de "base
@@ -412,21 +433,21 @@ en FPGAs mediante High Level Synthesis}
          Dentro del diseño basado en Matrizes de Puertas, encontramos tres tipos:
 
          \begin{itemize}
-            \item{Channeled Gate Array}: Se caracteriza por tener un espacio
+            \item{\textbf{Channeled Gate Array:}} Se caracteriza por tener un espacio
             fijos entre filas de transistores.
 
-            \item{Channel Less Gate Array}: Al contrario que en el diseño
+            \item{\textbf{Channel Less Gate Array:}} Al contrario que en el diseño
             comentado anteriormente, no deja espacio libre para el enrutado de los
             transistores. Por tanto el enrutado pasara a ser un enrutado
             personalizado entre el metal y el transistor.
 
-            \item{Structured Gate Array}: A diferencia de los otros tipos de
+            \item{\textbf{Structured Gate Array:}} A diferencia de los otros tipos de
             estructuracion, que principalmente se centraban en la interconexion de
             los transistores, se centra en integrar tambi\'en un bloque y asi poder
             tener bloques configurables en el diseño. 
          \end{itemize}
          
-         \item Diseño "Full Custom" o hecho a medida: El diseño "Full Custom",
+         \item \textbf{Diseño "Full Custom" o hecho a medida:} El diseño "Full Custom",
          esta destinado a una accion en especifica y por tanto todas sus
          interconexiones y capas son personalizadas para la problematica a
          tratar. Esto conlleva a que el propio diseñador no pueda cambiar la
@@ -438,10 +459,94 @@ en FPGAs mediante High Level Synthesis}
       \end{itemize}
 
 \section{FPGA vs Otras tecnologias}
+%//TODO Dar a entender los pros de la FPGA en la actualidad
+   Cuando hablamos de FPGA, podemos destacamos ciertas caracteristicas y las
+   comparamos con otras arquitecturas para llegar a saber cual nos interesa mas
+   para el problema a tratar. Algunos de los detalles a comparar con otras
+   arquitecturas, las cuales hemos detallado anteriormente son:
+
+   \subsection{Rendimiento}
+      A terminos de rendimiento, esto siempre dependera de la problematica a
+      tratar, ya que si nos decantampos por procesos que siguen una esquematica
+      muy secuencial, claramente las CPU, serán mas aptas para este tipo de
+      tareas. No obstante, cuando queramos el mayor rendimiento en calculo o
+      procesamiento en paralelo, nos decantaremos por tecnologias como la GPU,
+      la FPGA o el ASIC y por tanto podran ejecutar estas funciones más rapido.
+      
+      Por otra parte, como hemos mencionado anteriormente las GPU, FPGA y ASIC
+      estan mas enfocadas para el procesamiento o calculo paralelo, pero Cuanto
+      a rendimiento los diseños de ASIC y FPGA seran mas rapido, ya que la GPU
+      dependera sustancialmente de la CPU. Y en cuanto a mayor rendimiento entre
+      la tecnologia ASIC y FPGA, la tecnologia ASIC mostrara mejor rendimiento,
+      ya que la FPGA sacrifica un poco de este a cambio de otras caracteristicas
+      que comentaremos seguidamente.
+
+   \subsection{Programabilidad}
+
+      Esta caracteristica hace que el diseño obtenido pueda llegar a ser
+      reconfigurable y a su vez pueda ser adaptable al cambio, por tanto la
+      tecnologia ASIC es la mas perjudicada, ya que como hemos comentado
+      anteriormente esta se basa en diseños hecho a medida para la tarea a
+      tratar. Sin embargo las GPU y CPU son las mas beneficiadas por su
+      configuracion a bases de instrucciones, lo que permite configurarlas con
+      con más facilidad. Mientras que la tecnologia FPGA como se ha comentado
+      anteriormente, esta sacrifica rendimiento a cambio de mejorar en el
+      aspecto de Programabilidad.  No obstante, esta sigue llegando a ser
+      complicada, ya que hay que tener un alto conocimiento sobre el diseño y
+      configirarla a base de maquina de estados.
+
+   \subsection{Adaptabilidad}
+
+      Cuanto adaptabilidad las CPU, GPU y FPGA son superiores en esta aspecto
+      por ser reconfigurables, lo que permite ser mas flexibles frente los
+      cambios y adaptarse a ello cos que con un dispositivo ASIC solo
+      conseguiriamos mediante el rediseño de este.
+
+   \subsection{Coste/Eficiencia}
+
+     Cuando hablamos de coste a partir de Eficiencia, siempre se intenta hacer
+     un estudio del caso a tratar, ya que dependiendo de las caracteristicas del
+     problema a tratar podemos acabar utilizando un sistema empotrado para
+     tareas donde el procesamiento sea secuencial y la necesidad de cores no sea
+     de extrema necesidad. Mientras que si necesitamos una respuesta rapida
+     mediante un cambio, como podria ser la conduccion autonoma, el uso de ASIC
+     o FPGA frente la GPU es preferible, ya que estas no cuentan con tantos
+     procesos intermedio y necesitariamos mas GPU's para llegar a suplir la
+     necesidad, haciendo que el coste se dispare por ende el estas dos serian
+     perfectas para esto. Sin embargo entre estas dos el ASIC puede llegar a ser
+     muy eficiente pero al tiempo habria que rediseñarla haciendo la un proceso
+     mucho mas caro, un punto donde la FPGA no necesitaria ya que esta se adapta
+     al problema ya que admite la reconfiguran de ella.
+
+   \subsection{Computacion paralela}
+
+      Como se ha mencionado anteriormente, la CPU se especializa en el
+      procesamiento secuencial, por tanto en la computacion paralela es inferior
+      a las otras tecnologias comentadas anteriormente. Por otra parte las GPU,
+      FPGA y ASIC si estan mas enfocadas a este tipo de procesamiento, ya que
+      las GPU cuenta con una gran cantidad de nucleo a comparacion de la CPU y
+      la FPGA cuenta com multiple bloques designado para la computacion en
+      paralelo y por parte del ASIC, podemos llegar a diseñar el diseño
+      necesario para ello.  Sin embargo tanto la FPGA y la GPU llegaran a
+      ofrecer una gran escalabidad a comparacion del diseño ASIC.
+
+   \subsection{Aplicacion en tiempo real}
+      
+      Como se ha descrito anteriormente, la FPGA es perfecta para dar respuestas
+      rapidas frente a nueva entrada, por su arquitectura y configuracion. Lo
+      que la hacer perfecta para este tipo de aplicaciones. Por otra parte la
+      tecnologia ASIC, podria llegar a compararse, pero no una de las
+      principales caracteristicas de las aplicaciones en tiempo real es su
+      adaptabilidad al cambio, lo que un ASIC no podria suplir. Siendo la FPGA,
+      la tecnologia que obtiene un tiempo menor en el procesamiento compararado
+      con las tecnologias tratadas.
 
 \chapter{High Level Synthesis}
 \section{Register Transfer Level}
 \section{HLS vs RTL}
+\section{Lenguajes de descripcion}
+   \subsection{Verilog}
+   \subsection{VHDL}
 \section{Vitis High-Level Synthesis}
 
 \chapter{Preparacion del entorno}

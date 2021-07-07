@@ -25,31 +25,39 @@
 \contentsline {section}{\numberline {3.2}Arquitecturas heterogenias}{7}{section.3.2}%
 \contentsline {subsection}{\numberline {3.2.1}CPU}{8}{subsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.2.2}GPU}{8}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}CPLD}{8}{subsection.3.2.3}%
-\contentsline {subsection}{\numberline {3.2.4}ASIC}{8}{subsection.3.2.4}%
+\contentsline {subsection}{\numberline {3.2.3}ASIC}{8}{subsection.3.2.3}%
 \contentsline {section}{\numberline {3.3}FPGA vs Otras tecnologias}{9}{section.3.3}%
-\contentsline {chapter}{\numberline {4}High Level Synthesis}{11}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Register Transfer Level}{11}{section.4.1}%
-\contentsline {section}{\numberline {4.2}HLS vs RTL}{11}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Vitis High-Level Synthesis}{11}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Preparacion del entorno}{13}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Realizar una codigo sintetizable}{15}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Optimizacion del codigo}{17}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Directivas \#pragma}{17}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Librerias HLS}{17}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Arbitrary Precision Data Types}{17}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}HLS Math}{17}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}HLS Video}{17}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}HLS IP}{17}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}HLS Linear Algebra}{17}{subsection.7.2.5}%
-\contentsline {subsection}{\numberline {7.2.6}HLS DSP}{17}{subsection.7.2.6}%
-\contentsline {section}{\numberline {7.3}TMP o Template metaprograming}{17}{section.7.3}%
-\contentsline {chapter}{\numberline {8}Version Final: Red neuronal}{19}{chapter.8}%
-\contentsline {chapter}{\numberline {9}Conclusions}{21}{chapter.9}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{23}{chapter*.9}%
+\contentsline {subsection}{\numberline {3.3.1}Rendimiento}{10}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Programabilidad}{10}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Adaptabilidad}{10}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Coste/Eficiencia}{10}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Computacion paralela}{10}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Aplicacion en tiempo real}{11}{subsection.3.3.6}%
+\contentsline {chapter}{\numberline {4}High Level Synthesis}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Register Transfer Level}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}HLS vs RTL}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Lenguajes de descripcion}{13}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Verilog}{13}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}VHDL}{13}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Vitis High-Level Synthesis}{13}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Preparacion del entorno}{15}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Realizar una codigo sintetizable}{17}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Optimizacion del codigo}{19}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Directivas \#pragma}{19}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Librerias HLS}{19}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Arbitrary Precision Data Types}{19}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}HLS Math}{19}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}HLS Video}{19}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}HLS IP}{19}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}HLS Linear Algebra}{19}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}HLS DSP}{19}{subsection.7.2.6}%
+\contentsline {section}{\numberline {7.3}TMP o Template metaprograming}{19}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Version Final: Red neuronal}{21}{chapter.8}%
+\contentsline {chapter}{\numberline {9}Conclusions}{23}{chapter.9}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{25}{chapter*.9}%
 \noindent \hrulefill \par 
 \appendicesname \par 
-\contentsline {chapter}{\numberline {A}Configuració del sistema}{25}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Fase d'inicialització}{25}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Identificació de dispositius}{25}{section.Alph1.2}%
-\contentsline {chapter}{\numberline {B}??? ???????????? ????}{27}{appendix.Alph2}%
+\contentsline {chapter}{\numberline {A}Configuració del sistema}{27}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Fase d'inicialització}{27}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Identificació de dispositius}{27}{section.Alph1.2}%
+\contentsline {chapter}{\numberline {B}??? ???????????? ????}{29}{appendix.Alph2}%
