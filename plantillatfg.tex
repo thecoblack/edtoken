@@ -25,9 +25,7 @@
 %    Pero el mes recomanable es fer servir utf8 (unicode 8)                   %
 %                                          (si el vostre editor ho permet)    % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \usepackage[utf8]{inputenc} 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                        ALTRES PAQUETS I DEFINICIONS                         %
 %                                                                             %
@@ -35,6 +33,7 @@
 %                                          (aquesta seccio pot ser buida)     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%\usepackage[13-19]{pagesel}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                        DADES DEL TREBALL                                    %
@@ -219,13 +218,14 @@ en FPGAs mediante High Level Synthesis}
   para la problematica a dispositivos reprogramable que se adaptan en funcion de
   las necesidades. Dentro de las reprogramables encontramos la tecnologia FPGA o
   Field Programmable Gate Array conformada por diversos bloques logicos
-  configurables que pueden ser modificables dependiendo la necesidad del diseño
-  y como se ha Introducido anteriormente esta se encuentras implatada en muchos
-  sectores de la industria.
+  configurables que pueden ser modificables dependiendo la necesidad del diseño,
+  dando como resultado un crecimiento en diferentes sectores de la industria por
+  sus caracteristicas.
   
-  Cuanto a su configuracion, estas utilizan lenguajes de descripcion para
-  implementar un diseño, normalment estos lenguajes de descripcion suelen ser
-  VHDL o Verilog, los cuales luego son transferidos a la FPGA mediante el un
+  Cuanto a su configuración, estas utilizan lenguajes de descripción para
+  implementar un diseño, normalment estos lenguajes suelen ser
+  VHDL o Verilog que se encargan de dar las intrucciones necesarias para la
+  creación de microarquitecutras que son transferidos a la FPGA mediante el un
   proceso que genera un archivo Bitstream. Una vez generado, el Bitstream 
   contiene todo lo necesario para configurar la FPGA, la logica descrita, las
   rutas para llegar a los bloques logicos y los valores iniciales. 
@@ -248,8 +248,13 @@ en FPGAs mediante High Level Synthesis}
 
 \section{Arquitectura de la FPGA}
 
-  Como se ha mencionado antes la FPGA esta compuesta por varios componentes a
-  parte de los mencionados anteriormente. Esta se compone de los siguientes: 
+  Como se ve en \ref{fig:fpga_arch}, la arquitectura de una FPGA consiste en
+  varios arreglos de CLB interconectados mediante cananales de direccion
+  horizontal y vertical, lo que conforma una matriz y aunque esta tecnologia
+  pueda variar en sus bloques logicos y la forma de enrutarlos, esto solo
+  dependera del fabricante, por tanto en este apartado dedicaremos a resumir la
+  arquitectura de la FPGA desde el punto mas general dentro de su arquitectura
+  mas regular.
 
   \subsection{Cofigurable Logic Block}
       Los bloques logicos son los que implementan las funciones logicas a
@@ -266,22 +271,31 @@ en FPGAs mediante High Level Synthesis}
          \label{fig:clb_arch}
       \end{figure}
 
-      Su arquitectura mas general, como podemos ver en \ref{fig:clb_arch}, se compone de:
+      Su arquitectura mas general, como podemos ver en \ref{fig:clb_arch}, se
+      compone de:
 
       \begin{itemize}
-         \item \textbf{Look-up tables:} Esta determina una salida a partir de una tabla y
-         por tanto ser\'a la que describa el comportamiento logico, no obstante
-         el tamaño de esta variara dependiendo de las caracteristicas
-         necesarias.  
-         \item \textbf{Full adder:} %//TODO Full Adder
+         \item \textbf{Look-up tables:} Esta determina una salida a partir de
+         una tabla y por tanto ser\'a la que describa el comportamiento logico,
+         no obstante el tamaño de esta variara dependiendo de las
+         caracteristicas necesarias.  
+
+         \item \textbf{Full adder:} El Full Adder se caracteriza por ser una
+         unidad aritmetologica, la cual tiene un amplio uso en el sistema con
+         operaciones tipo suma, resta, multiplicacion, division o como contador.
          
-         \item \textbf{Flip-Flop tipo D:} De toda la familia existente de los biestables,
-         este tipo suele ser útil cuando hablamos de almacenar información, no
-         obstante esta informacion será unicamente un bit.
+         \item \textbf{Flip-Flop tipo D:} De toda la familia existente de los
+         biestables, este tipo suele ser útil cuando hablamos de almacenar
+         información, no obstante esta informacion será unicamente un bit.
+
       \end{itemize}
 
       Finalmente el numero de elementos dentro del bloque logico dependera sobre
-      todo, de las caracteristicas del producto.
+      todo, de las caracteristicas del producto y del proposito al que quermos
+      llegar, por ejemplo en la eleccion de entradas de las LUT, la cual sera
+      mas  lenta, pero mejor optimizaran el area de uso cuanto menor numero de
+      entradas tenga, mientras que a mayor numero de entradas estas permiten
+      realizar operaciones mas complejas a cambio de usar mas area.
 
   \subsection{Input/Output Block}
   
@@ -297,7 +311,7 @@ en FPGAs mediante High Level Synthesis}
 
   \subsection{Block Random Access Memory}
       
-      Los bloques de RAM, son elementos dedicados al almacenadoj de datos y como
+      Los bloques de RAM, son elementos dedicados al almacenado de datos y como
       su propio nombre indica, la encontramos en forma de bloques. Estos bloques
       son bastante flexibles y se adaptan a las necesidades del diseño pudiendo
       configura estos como memoria RAM, ROM o FIFO.
@@ -325,7 +339,7 @@ en FPGAs mediante High Level Synthesis}
   \subsection{Enrutado}
 
       Los enrutados son los encargados de conectar las distintas logicas entre
-      si, creando los difernetes caminos para llegar de los diferentes bloques.
+      si, creando los difernetes caminos para llegar a los diferentes bloques.
       Las conexiones entre si esta hechas mediante varios canales, no obstante
       entre para efecutar la conexion entre ellos encontramos un nuevo tipo de
       bloque, en este caso los bloques  de conexiones.
@@ -341,7 +355,7 @@ en FPGAs mediante High Level Synthesis}
       redirigir el output mediante la ruta indicada para llegar al siguiente
       bloque, ya sea otro bloque de conexion o los tratados anteriormente. No
       obstante, como se puede ver en la imagen \ref{fig:routing_fpga} dentro de
-      los bloques de conexiones encontramos swiches, que son los encargados De
+      los bloques de conexiones encontramos swiches, que son los encargados de
       guiar la señal por dentro del bloque de conexiones.
 
 \section{Arquitecturas heterogenias}
@@ -394,15 +408,15 @@ en FPGAs mediante High Level Synthesis}
 
    \subsection{ASIC}
 
-     Dentro de todas las arquitecturas desarolladas en este capitulo, esta es la unica
-     la cual entramos que esta hecha para una tarea especifica y no esta pensada para 
-     propositos generales. Como arquitectura encontramos varias de ellas:
+     Dentro de todas las arquitecturas desarolladas en este capitulo, esta es la
+     unica la cual esta hecha para una tarea especifica y no esta pensada para 
+     propositos generales. Como arquitectura encontramos varios diseños:
 
       \begin{itemize}
 
-         \item \textbf{Dise\~{n}o basado en Celdas Estándares:} El diseño ASIC basado en
-         celdas estandares, se caracteriza por tener su celdas logicas como
-         puertas logicas multiplexores o flip-flops ya prediseñadas por los
+         \item \textbf{Dise\~{n}o basado en Celdas Estándares:} El diseño ASIC
+         basado en celdas estandares, se caracteriza por tener su celdas logicas
+         como puertas logicas multiplexores o flip-flops ya prediseñadas por los
          diseñadores de la propia ASIC, lo que con lleva a tener diferentes
          configuraciones guardadas en forma de librerias. Esto se conoce como
          "standard cell library".
@@ -415,17 +429,18 @@ en FPGAs mediante High Level Synthesis}
          \end{figure}
 
          Este diseño ASIC, como se puede ver en \ref{fig:standard_cell}, esta
-         compuesto por dos componentes generales, la celda estandar es un bloque
-         organizado en celdas estandarizadas en filas y su funcionamiento
-         dependera de las "standar cell libraries". Por otra parte encontramos
-         los bloque fijos o C-BIC, estos son capas customizadas donde el
-         diseñador puede colocar otras celdas estandares.
+         compuesto por dos componentes con propositos generales, primeramente
+         encontramos la celda estandar es un bloque organizado en celdas
+         estandarizadas en filas y su funcionamiento dependera de las "standar
+         cell libraries". Por otra parte encontramos los bloque fijos o C-BIC,
+         estos son capas customizadas donde el diseñador puede colocar otras
+         celdas estandares.
          
          \item \textbf{Diseño basado en Matriz de Puertas:} En este diseño, la placa
          ASIC, viene predefinida por un numero de transistores en una oblea de
          silicio, en esta el diseñador no puede cambiar el lugar donde se alojan
          estos. Esto acaba formando pequeños patrones repetitivos de "base
-         array" los cuales son patrones de matrizes logicas. Cuanto a la
+         array", los cuales son patrones de matrizes logicas donde la
          interconexion de estas, es donde el diseñador tiene la responsabilidad
          de conectar usando capas de metal y asi obtener el funcionamiento
          logico deseado. 
@@ -447,39 +462,38 @@ en FPGAs mediante High Level Synthesis}
             tener bloques configurables en el diseño. 
          \end{itemize}
          
-         \item \textbf{Diseño "Full Custom" o hecho a medida:} El diseño "Full Custom",
-         esta destinado a una accion en especifica y por tanto todas sus
+         \item \textbf{Diseño ''Full Custom'' o hecho a medida:} El diseño ''Full Custom'',
+         esta destinado a una acción en específica y por tanto todas sus
          interconexiones y capas son personalizadas para la problematica a
          tratar. Esto conlleva a que el propio diseñador no pueda cambiar la
          interconexion de estos, ya que sino obtendriamos un resultado diferente
-         al dado, haciendo que el dieñador se centre enteramente la optimizacion
+         al dado, haciendo que el diseñador se centre enteramente la optimización
          de este, construyendo distintos circuitos o optimizando las celdas de
          memoria.
 
       \end{itemize}
 
 \section{FPGA vs Otras tecnologias}
-%//TODO Dar a entender los pros de la FPGA en la actualidad
    Cuando hablamos de FPGA, podemos destacamos ciertas caracteristicas y las
-   comparamos con otras arquitecturas para llegar a saber cual nos interesa mas
+   comparamos con otras arquitecturas para llegar a saber cual nos interesa más
    para el problema a tratar. Algunos de los detalles a comparar con otras
-   arquitecturas, las cuales hemos detallado anteriormente son:
+   arquitecturas de las detalladas anteriormente són:
 
    \subsection{Rendimiento}
-      A terminos de rendimiento, esto siempre dependera de la problematica a
+      A terminos de rendimiento, esto siempre dependerá de la necesidad a
       tratar, ya que si nos decantampos por procesos que siguen una esquematica
       muy secuencial, claramente las CPU, serán mas aptas para este tipo de
       tareas. No obstante, cuando queramos el mayor rendimiento en calculo o
       procesamiento en paralelo, nos decantaremos por tecnologias como la GPU,
-      la FPGA o el ASIC y por tanto podran ejecutar estas funciones más rapido.
+      la FPGA o el ASIC y por tanto podran ejecutar estas funciones más rápido.
       
       Por otra parte, como hemos mencionado anteriormente las GPU, FPGA y ASIC
-      estan mas enfocadas para el procesamiento o calculo paralelo, pero Cuanto
-      a rendimiento los diseños de ASIC y FPGA seran mas rapido, ya que la GPU
-      dependera sustancialmente de la CPU. Y en cuanto a mayor rendimiento entre
-      la tecnologia ASIC y FPGA, la tecnologia ASIC mostrara mejor rendimiento,
-      ya que la FPGA sacrifica un poco de este a cambio de otras caracteristicas
-      que comentaremos seguidamente.
+      estan mas enfocadas para el procesamiento o calculo paralelo, pero cuanto
+      a rendimiento los diseños de ASIC y FPGA serán más rápidas, ya que la GPU
+      dependera sustancialmente de la interacción con la  CPU. Y en cuanto a
+      mayor rendimiento entre la tecnologia ASIC y FPGA, la tecnologia ASIC
+      mostrara mejor rendimiento, ya que la FPGA sacrifica un poco de este a
+      cambio de otras caracteristicas que comentaremos seguidamente.
 
    \subsection{Programabilidad}
 
@@ -541,13 +555,211 @@ en FPGAs mediante High Level Synthesis}
       la tecnologia que obtiene un tiempo menor en el procesamiento compararado
       con las tecnologias tratadas.
 
-\chapter{High Level Synthesis}
-\section{Register Transfer Level}
-\section{HLS vs RTL}
-\section{Lenguajes de descripcion}
-   \subsection{Verilog}
+\section {Conclusion} %//TODO
+% Además, haría falta tener una sección o apartado de conclusiones en la que 
+% se determine cuál es la arquitectura seleccionada como candidata 
+% (entiendo que la FPGA) y por qué. 
+
+\chapter{Configuracion y ''Workflow'' en tecnologias FPGA}
+
+   Como se ha mencionado en otros apartados el diseño en tecnologias FPGA
+   sigue siendo costoso y complejo por su forma de tratar con la
+   arquitectura, la forma tradicional de tratar de esta es mediante leguajes de
+   diseño RTL como Verilog o VHDL que permite diseñar la logica en bloques
+   logicos.
+
+   Estos bloques estrito en algun lenguaje RTL son pequeñas microarquitecturas
+   configuradas para tener sus propias entradas como inputs o entradas de reloj
+   y salidas. 
+
+\section{Lenguajes de descripción}
+
+   Frente a la complejidad creciente de los circuitos digitales los diseñadores
+   necesitaban descripciones de alto nivel que no estuvieran determinadas por
+   tecnologia electronica, como los CMOS que son pequeñas memoria formadas por
+   transistores pMOS y nMOS utilizadas a dia de hoy para almacenar la
+   informacion de la BIOS en las placas base o los transistores de union bipolar
+   que tiene un aplio uso en el campo de la electronica.
+
+   Con ello se crearon los HDL, lenguajes especializados en describir
+   estructuras y conportamiento de circuitos electronicos y logicos, con el
+   proposito de dar cierta capa de abstarción entre el diseño y el diseñador,
+   haciendo posible simular y analizar la microarquitectura descrita, llegando
+   hasta el punto de estar la mayoria de estos dentro de los estadares ANSI e IEEE
+   lo que conlleva a los distintos diseños creados cierta independencia cuanto
+   a tecnologia empleada y fabricante.
+
+   Otra caracteristica importante de estos lenguajes es la forma de describir un
+   circuito, y el uso de esta dependera mayoritariamente del diseñador, el cual
+   elegira dependiendo de la necesidad del diseño.    
+   
+   \begin{figure}[h]
+      \centering
+      \includegraphics[width=6cm]{img/cap4/desc.png}
+      \caption{Tipos de descripcion}
+      \label{fig:description_types}
+   \end{figure}
+
+   \newpage
+   
+   Existen tres tipos basicos donde la abstracción varia dependiendo de cual se
+   use, estos son:
+
+   \begin{itemize}
+
+      \item \textbf{Descripción comportamental: } En esta descripcion de nivel
+      mas abstracto, ya que solamente describe como se comporta el circuito
+      digital y solamente se tienen en cuenta las relaciones entre entradas y salidas.
+
+      \item \textbf{Descripción de flujo de datos: } La descripción de flujo de
+      datos, es la intermedia cuanto a nivel de abstracción y describe el modulo
+      a partir de la prespectiva de la transformacion y transmision de datos.
+
+      \item \textbf{Descripción estructural: } La forma de descripción
+      estructural es la mas cercana a la descripcion de  una estructura real de
+      hardware, ya que en esta descripcion se interconectan diferente
+      componentes y puertas logicas para obtener la fucion deseada, obteniedo
+      con ello el menor nivel de abstracción de los tres tipos. 
+
+   \end{itemize}
+
+   En la actualidad encontramos una gran cantidad de estos, no obstante
+   los mas usado son VHDL y Verilog, los cuales detallaremos en el siguente
+   apartado.   
+
    \subsection{VHDL}
-\section{Vitis High-Level Synthesis}
+
+      VHDL o VHSIC Hardware Description Lenguaje, es unos de los lenguajes
+      dentro del estandar IEEE mas popular actualmente, que surgio en los 80 por
+      parte del departamento de defensa de Estados Unidos como alternativa a los
+      esquemas donde los diseñadores establecian las conexiones entre bloques,
+      lo que resultaba costoso, de dificil entedimiento y poco compatibles entre
+      ellos.
+
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=5cm]{img/cap4/captura-esquematicos-263x300.jpg}
+         \caption{Herramienta de captura de esquematicos}
+         \label{fig:esquema}
+      \end{figure}
+
+      El desarollo del VHDL sutituyo al proceso anterior \ref{fig:esquema},
+      consiguiendo agilizar el proceso de diseñar un diseño, hasta llegar al
+      punto de ser aprobado por el comite de IEEE, siendo este ya un lenguaje
+      estadarizado dentro de los estandares IEEE. 
+
+      Como se ha comentado anteriormente, los lenguajes HDL tienen varias formas
+      de describir un diseño, y VHDL puede describirlos de forma comportamental,
+      estructural y de flujo de datos.  No obstante VHDL tambien permite el uso
+      mixto de esto, permitiendo combinar todas las anteriores o alguna de
+      ellas.
+
+   \subsection{Verilog}
+
+      Verilo HDL, es otro lenguaje de descripcion creado por Phil Moorby con el
+      proposito de crear un lenguaje de descripcion similar a C, para que fuera
+      mas familiar para el diseñador y al igual que VHDL, los dos son lenguajes
+      de codigo abierto y estandarizados en la IEEE.
+
+      Aunque Verilog, tenga similutudes en C como pueden ser algunas palabras
+      reservadas y un preprocesador y los operadores de lenguaje, existen
+      algunas diferencias con este, como la carencia de punteros y estructuras.
+      Tambien el concepto tiempo esta en Verilog, ya que este concepto es muy
+      importante en lenguajes HDL, mientras que en C no lo encontramos.
+
+      Cuanto a su forma de describir un diseño este, solamente acepta dos formas
+      de descripcion de las comentadas anteriormente, estructural y corporamental.
+     
+   \subsection{Ventajas de los lenguajes HDL}
+
+
+   
+   \subsection {Metodologia de diseño}
+
+      Cuanto a la metodologia de diseño en lenguajes HDL encontrampos tres
+      etapas, las cuales son subdividibles en otras tareas. Estas tres etapas
+      son diseño logico, implementacion del diseño y finalmente verificacion del
+      diseño.
+
+      En el caso del diseño lógico, el diseñador se centra en definir el
+      problema para generar los distintos diagramas de bloques, obtener las
+      tablas de verdad y generar las equaciones logicas que describiran el
+      corportamiento del diseño. 
+      
+      Una vez hemos obtenido todo lo anterior, empieza la segunda etapa, la cual
+      se centra en la implementación del diseño, empezando por la seleccion del
+      dispositivo, el cual lo seleccionaremos dependiendo de las necesidades de
+      la implementacion, y finalmente describiremos el diseño en lenguajes
+      HDL. 
+
+      Por ultimo, quedaria la verificacion del diseño, ver si lo hecho cubre las
+      necesidades y funciona correctamente. Esto se llevara a cabo mediante
+      pruebas de simulacion del diseño mediante salidas esperadas dependiendo de
+      la entrada dada al componente y ejecutando benchmarks, para comprobar su
+      maximo potencial.  
+
+      No obstante el diseñador puede orientar el flujo de diseño de dos formas:
+      \begin{itemize}
+         \item \textbf{Bottom-Up: } Esta metodología de diseño se centra en
+         generar diferentes descripciones de componentes, los cuales seran
+         agrupados en distintos de modulos, hasta formar un sistema completo. No
+         obstante, este diseño puede llegar a ser ineficiente en diseños
+         complejos y poco flexible al ser dependiente de la tecnologia usada.
+
+         \item \textbf{Top-Down: } El diseño Top-Bottom se centra en implementar
+         un diseño desde la parte de mas alto nivel e ir especificando el nivel
+         de detalle segun sea necesario, esto dota al diseño de la posibilidad
+         de subdividirlo en subdiseños hasta llegar a los componentes mas
+         faciles de tratar y a su vez aumenta la posibilidad de reutilizar el diseño.
+      \end{itemize}
+
+      Finalmente, el diseño Top-Down proporciona mas ventajas sobre el diseño
+      Bottom-Up, ya que al propio diseñador puede implementar su diseño en un
+      alto nivel de abstracción o centrarse en una especifiacion mas detallada,
+      lo que conlleva a ser el diseño mas utilizado.
+   
+%\section{Register Transfer Level}
+      
+\section{High Level Synthesis}
+   
+   El High Level Synthesis o HLS es un proceso de diseño automatico, el cual
+   interpreta una entrada para seguidamente transformar a esta en dispositivo
+   digital que implementa el comportamiento deseado.
+
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=5cm]{img/cap4/hlsprocess.jpg}
+         \caption{Proceso High Level Synthesis}
+         \label{fig:hls_process}
+      \end{figure}
+
+   Estas entradas suelen ser lenguajes de alto nivel, como C/C++, SystemC o
+   Matlab, siendo estos analizados y limitados arquitectonicamente, para despues
+   ser transcompilados a una descripcion RTL en un lenguaje HDL, que normalmente
+   suelen ser VHDL o Verilog.   
+
+   Como se ve en \ref{fig:hls_process}, el proceso del HLS consiste en un numero
+   de acciones, que dependiendo de la HLS usado, siguen un orden usadon
+   diferentes algoritmos y asi obtener el resultado deseado. Estas actividades son: 
+
+   \begin{itemize}
+      \item \textbf{Procesamiento lexico: } 
+      \item \textbf{Optimizacion del algoritmo: }
+      \item \textbf{Analisis de control/flujo de datos: }
+      \item \textbf{Procesamiento de librerias: }
+      \item \textbf{Asignación de recursos: }
+      \item \textbf{Planificación: }
+      \item \textbf{Enlace de la unidad funcional: }
+      \item \textbf{Enlace de registro: }
+      \item \textbf{Procesamiento de salida: }
+      \item \textbf{Reagrupación de entrada: }
+   \end{itemize}
+
+   \subsection{Metodologia de dise\~{n}o}
+
+\section{Comparativa de flujo de dise\~{n}o}
+
+\chapter{Vitis High-Level Synthesis}
 
 \chapter{Preparacion del entorno}
 
