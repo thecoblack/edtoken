@@ -35,6 +35,11 @@
 
 %\usepackage[13-19]{pagesel}
 
+\newenvironment{no_desc}{
+   \begin{itemize}
+      \setlength{\itemsep}{0.2pt}
+}{\end{itemize}}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                        DADES DEL TREBALL                                    %
 %                                                                             %
@@ -718,8 +723,20 @@ en FPGAs mediante High Level Synthesis}
       alto nivel de abstracción o centrarse en una especifiacion mas detallada,
       lo que conlleva a ser el diseño mas utilizado.
    
-%\section{Register Transfer Level}
-      
+\section{Register Transfer Level}
+
+   Dentro del diseño de circuitos digitales, el Register Transfer Level o RTL es
+   una capa de abstracion en el diseño de circuitos, el cual modela un circuito
+   digital sincrono en cuanto a flujo de datos entre registros fisicos y
+   operaciones logicas. Estos circuitos sincronos estan formadas por dos tipos
+   de elementos basicos, los circuitos combinacionales, los cuales se forman a
+   partir de puertas logicas y los circuitos secuenciales, los cuales se forman
+   con Flip-Flop, normalmente del tipo D. 
+
+   Esta abstracción que genera el RTL es aplicada en los lenguajes HDL, como
+   Verilog o VHDL para representar el circuito en alto nivel, siendo este
+   recurso muy usual en el diseño de circuitos actual. 
+
 \section{High Level Synthesis}
    
    El High Level Synthesis o HLS es un proceso de diseño automatico, el cual
@@ -739,27 +756,161 @@ en FPGAs mediante High Level Synthesis}
    suelen ser VHDL o Verilog.   
 
    Como se ve en \ref{fig:hls_process}, el proceso del HLS consiste en un numero
-   de acciones, que dependiendo de la HLS usado, siguen un orden usadon
+   de acciones, que dependiendo de la HLS usado, siguen un orden usando 
    diferentes algoritmos y asi obtener el resultado deseado. Estas actividades son: 
 
-   \begin{itemize}
-      \item \textbf{Procesamiento lexico: } 
-      \item \textbf{Optimizacion del algoritmo: }
-      \item \textbf{Analisis de control/flujo de datos: }
-      \item \textbf{Procesamiento de librerias: }
-      \item \textbf{Asignación de recursos: }
-      \item \textbf{Planificación: }
-      \item \textbf{Enlace de la unidad funcional: }
-      \item \textbf{Enlace de registro: }
-      \item \textbf{Procesamiento de salida: }
-      \item \textbf{Reagrupación de entrada: }
-   \end{itemize}
+   \begin{no_desc}
+      \item Procesamiento lexico
+      \item Optimizacion del algoritmo
+      \item Analisis de control/flujo de datos
+      \item Procesamiento de librerias
+      \item Asignación de recursos
+      \item Planificación
+      \item Enlace de la unidad funcional
+      \item Enlace de registro
+      \item Procesamiento de salida
+      \item Reagrupación de entrada 
+   \end{no_desc}
+
+   No obstante, en la actualidad los lenguajes de programacion que se usan como
+   entrada, estan destinados a la interpretacion y manejo de una CPU, y esto
+   provoca ciertos conflictos en el HLS a la hora de transcompilar este codigo a
+   un RTL, ya que conceptos como el manejo de memoria tal y como lo conocemos en
+   C/C++ no es sintetizable o la recursion, una tecnica bastante utilizada en
+   algoritmos que requiera de repeticion de codigo como el Quicksort. Sin
+   embargo en la actualidad existen varias empresas con su propio HLS y por lo
+   cual con algunas de estas limitaciones algo diferidas enfrente otros HLS de otra
+   marcas. Por tanto esta limitaciones podemos agruparlas en:
+
+   \begin{no_desc} 
+      \item Jerarquicos
+      \item Sintesis de interfaces
+      \item Manejo de memoria
+      \item Bucle
+      \item Restricciones de reloj a bajo nivel
+      \item Iteracion
+   \end{no_desc}
+
+   \newpage
 
    \subsection{Metodologia de dise\~{n}o}
 
+      El HLS hace el proceso de diseño mucho mas siplificado por el uso de
+      lenguajes de propositos generales, como C o C++, algo mucho mas
+      interiorizado actualmente y con ello reduciendo la dificultat de los
+      fundamentos a numero de metodologias mucho mas amigables, que en los
+      lenguajes HDL, para hacer un codigo sintetizable, esto permite que el
+      proceso pueda adaptarse a metodologias de lenguajes orientados a proposito
+      generales.
+
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=6cm]{img/cap4/hls_design.jpg}
+         \caption{Proceso de diseño en el High Level Synthesis}
+         \label{fig:hls_desing}
+      \end{figure}
+
+      Como se ve \ref{fig:hls_desing}, todo el diseño se subdivide en diferentes
+      etapas, la primera de todas se centra en la programacion de un codigo en
+      lenguajes de proposito general y a su vez sea sintetizable, una vez
+      generado esto, tenemos que comprobar si la funcionalidad de este es
+      correcta mediante pruebas sin niguna tecnica para casos mas simples o para
+      casos mas complejos podriamos pruebas de caja negra, ya que esta se centra
+      en analizar las salidas a partir de las entradas recibidas, algo que puede
+      llegar a ser util  en la etapa de depuracion y compilacion.
+      
+      Una vez ya este todo correcto, es hora de aplicar el HLS y comprobar si no
+      genera ningun error cuanto a sintesis, sino deberiamos volver a la primera
+      etapa, para generar otra solucion. En caso de pasar la sintesis, es hora
+      de comprobar si el resultado dado, por el HLS es el desado en terminos de
+      recursos utilizados, en caso el caso de no cumplir con lo esperado,
+      tendriamos dos opciones, una seria aplicar directivas que puedan ayudar a
+      optimizar partes de codigo, como dando a un arra mas de una interfaz de
+      entrada o paralelizar alguno ciclos donde los datos utilizados procedan de
+      lugar distino. No obstante, si las directivas no fueran capazes de generar
+      un resultado que se adapte a lo deseado, tendriamos que volver a la
+      primera etapa para generar otra solucion.
+
+      Finalmente, si todo ha ido correctamente, ya solamente nos quedaria la
+      ultima etapa, donde hacemos la cosimulacion de la prueba creada y el RTL
+      generado, el cual podemos analizar seguidamente en un visor de ondas,
+      donde veremos todas las acciones mediate ciclos de reloj. Sin embargo,
+      esta simulacion puede llegar a fallar y en caso de que ocurriera, solo nos
+      quedaria volver a la etapa inicial y hacer lo mismo que en los otros
+      casos.
+
 \section{Comparativa de flujo de dise\~{n}o}
 
+   Entre los dos tipos de flujo de diseños podemos destacar ciertas
+   caracteristicas que nos pueden guiar a cual usar. Algunos detalles a comparar
+   podria ser:
+
+   \subsection{Rendimiento}
+
+      En cuanto a rendimiento, describir el diseño en lenguajes HDL, de momento
+      se obtiene mayor rendimiento, ya que tratamos la problematica de forma
+      especifica y aunque el HLS tambien sea una herrmaienta bastante optima a
+      la hora de la generacion de RTL, esta se basa principalmente en soluciones
+      generales, lo que puede llegar a mermar ligeramente el rendimiento, no
+      obstante, dentro del propio HLS tiene directivas con propositos de
+      optimizacion que pueden llegar a solucionar o reducir los problemas que
+      puedan generar un rendimiento menor. Por tanto, la eleccion a traves de
+      rendimiento, dependerá de cuanto se pueda adaptar el HLS al problema que
+      queramos tratar.
+
+   \subsection{Flexibilidad}
+
+      En este aspecto, el High Level Synthesis ofrece mejor flexibilidad al
+      cambio, ya que en esta herramienta se encarga en generar un RTL en un
+      lenguaje HDL y por tanto nosotros tratamos de cambiar o corregir el codigo
+      ya escrito en un lenguaje de proposito general, por tanto la tarea de
+      modificar la descripcion ya hecha no es un problema a pensar, ya que el
+      HLS se encargara despues de volverla a generar, mientras que en los
+      lenguajes HDL, habria que pensar en una solucion y luego adaptar toda la
+      descripcion a ello, lo que puede llegar a ser una labor mucho mas tardia.
+
+   \subsection{Aprendizaje}
+
+      Como hemos visto anteriormente, los lenguajes HDL, necesitan de ciertos
+      fundamento en diseños digitales, como podrian ser los distintos tipos de
+      descripciones, algo que incluso con la abstracción que aportan alguna de
+      estas puede llegar a ser costoso. Sin embargo, con la herramienta HLS el
+      aprendizaje es minimo y solo te basas en unas pautas para llegar a
+      conseguir un codigo sintetizable en un lenguaje de proposito general, algo
+      mucho mas comun en el mundo tecnolgico a dia de hoy.
+
+   \subsection{Coste/Eficiencia}
+
+      En esta caracteristica, la tecnologia HLS sale ganadora, por su reduccion
+      de fundamentos a una simple guia de metodologias y tambien a la
+      adaptabilidad hacia al problema, haciendo que el tiempo usado para ello
+      sea menor que en lenguajes HDL, los cuales hay la necesidad de aprender
+      ciertos fundamentos sobre el diseño digital y ademas sobre el lenguaje a
+      utilizar.
+\newpage
+\section{Conclusion}
+
+   \begin{table}[h]
+      \begin{center}
+         \begin{tabular}{|l|c|c|}
+            \hline
+            Caracteristica & HDL & HLS \\ \hline
+            Rendimiento    &  x  &     \\ \hline
+            Flexibilidad   &     &  x  \\ \hline
+            Aprendizaje    &     &  x  \\
+            \hline
+         \end{tabular}
+         \caption{Conclusion lenguajes HDL vs HLS}
+         \label{tab:hdl_vs_hls}
+      \end{center}
+   \end{table}
+
+
 \chapter{Vitis High-Level Synthesis}
+   \section {Interfaces}
+   \section {Limitaciones}
+   \section {Directivas}
+   \section {Librerias}
 
 \chapter{Preparacion del entorno}
 

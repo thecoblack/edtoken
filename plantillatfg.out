@@ -32,26 +32,36 @@
 \BOOKMARK [2][-]{subsection.4.1.2}{Verilog}{section.4.1}% 32
 \BOOKMARK [2][-]{subsection.4.1.3}{Ventajas de los lenguajes HDL}{section.4.1}% 33
 \BOOKMARK [2][-]{subsection.4.1.4}{Metodologia de dise\361o}{section.4.1}% 34
-\BOOKMARK [1][-]{section.4.2}{High Level Synthesis}{chapter.4}% 35
-\BOOKMARK [2][-]{subsection.4.2.1}{Metodologia de dise\361o}{section.4.2}% 36
-\BOOKMARK [1][-]{section.4.3}{Comparativa de flujo de dise\361o}{chapter.4}% 37
-\BOOKMARK [0][-]{chapter.5}{Vitis High-Level Synthesis}{}% 38
-\BOOKMARK [0][-]{chapter.6}{Preparacion del entorno}{}% 39
-\BOOKMARK [0][-]{chapter.7}{Realizar una codigo sintetizable}{}% 40
-\BOOKMARK [0][-]{chapter.8}{Optimizacion del codigo}{}% 41
-\BOOKMARK [1][-]{section.8.1}{Directivas \043pragma}{chapter.8}% 42
-\BOOKMARK [1][-]{section.8.2}{Librerias HLS}{chapter.8}% 43
-\BOOKMARK [2][-]{subsection.8.2.1}{Arbitrary Precision Data Types}{section.8.2}% 44
-\BOOKMARK [2][-]{subsection.8.2.2}{HLS Math}{section.8.2}% 45
-\BOOKMARK [2][-]{subsection.8.2.3}{HLS Video}{section.8.2}% 46
-\BOOKMARK [2][-]{subsection.8.2.4}{HLS IP}{section.8.2}% 47
-\BOOKMARK [2][-]{subsection.8.2.5}{HLS Linear Algebra}{section.8.2}% 48
-\BOOKMARK [2][-]{subsection.8.2.6}{HLS DSP}{section.8.2}% 49
-\BOOKMARK [1][-]{section.8.3}{TMP o Template metaprograming}{chapter.8}% 50
-\BOOKMARK [0][-]{chapter.9}{Version Final: Red neuronal}{}% 51
-\BOOKMARK [0][-]{chapter.10}{Conclusions}{}% 52
-\BOOKMARK [0][-]{chapter*.12}{Bibliograf\355a}{}% 53
-\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 54
-\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 55
-\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 56
-\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 57
+\BOOKMARK [1][-]{section.4.2}{Register Transfer Level}{chapter.4}% 35
+\BOOKMARK [1][-]{section.4.3}{High Level Synthesis}{chapter.4}% 36
+\BOOKMARK [2][-]{subsection.4.3.1}{Metodologia de dise\361o}{section.4.3}% 37
+\BOOKMARK [1][-]{section.4.4}{Comparativa de flujo de dise\361o}{chapter.4}% 38
+\BOOKMARK [2][-]{subsection.4.4.1}{Rendimiento}{section.4.4}% 39
+\BOOKMARK [2][-]{subsection.4.4.2}{Flexibilidad}{section.4.4}% 40
+\BOOKMARK [2][-]{subsection.4.4.3}{Aprendizaje}{section.4.4}% 41
+\BOOKMARK [2][-]{subsection.4.4.4}{Coste/Eficiencia}{section.4.4}% 42
+\BOOKMARK [1][-]{section.4.5}{Conclusion}{chapter.4}% 43
+\BOOKMARK [0][-]{chapter.5}{Vitis High-Level Synthesis}{}% 44
+\BOOKMARK [1][-]{section.5.1}{Interfaces}{chapter.5}% 45
+\BOOKMARK [1][-]{section.5.2}{Limitaciones}{chapter.5}% 46
+\BOOKMARK [1][-]{section.5.3}{Directivas}{chapter.5}% 47
+\BOOKMARK [1][-]{section.5.4}{Librerias}{chapter.5}% 48
+\BOOKMARK [0][-]{chapter.6}{Preparacion del entorno}{}% 49
+\BOOKMARK [0][-]{chapter.7}{Realizar una codigo sintetizable}{}% 50
+\BOOKMARK [0][-]{chapter.8}{Optimizacion del codigo}{}% 51
+\BOOKMARK [1][-]{section.8.1}{Directivas \043pragma}{chapter.8}% 52
+\BOOKMARK [1][-]{section.8.2}{Librerias HLS}{chapter.8}% 53
+\BOOKMARK [2][-]{subsection.8.2.1}{Arbitrary Precision Data Types}{section.8.2}% 54
+\BOOKMARK [2][-]{subsection.8.2.2}{HLS Math}{section.8.2}% 55
+\BOOKMARK [2][-]{subsection.8.2.3}{HLS Video}{section.8.2}% 56
+\BOOKMARK [2][-]{subsection.8.2.4}{HLS IP}{section.8.2}% 57
+\BOOKMARK [2][-]{subsection.8.2.5}{HLS Linear Algebra}{section.8.2}% 58
+\BOOKMARK [2][-]{subsection.8.2.6}{HLS DSP}{section.8.2}% 59
+\BOOKMARK [1][-]{section.8.3}{TMP o Template metaprograming}{chapter.8}% 60
+\BOOKMARK [0][-]{chapter.9}{Version Final: Red neuronal}{}% 61
+\BOOKMARK [0][-]{chapter.10}{Conclusions}{}% 62
+\BOOKMARK [0][-]{chapter*.14}{Bibliograf\355a}{}% 63
+\BOOKMARK [0][-]{appendix.Alph1}{Configuraci\363 del sistema}{}% 64
+\BOOKMARK [1][-]{section.Alph1.1}{Fase d'inicialitzaci\363}{appendix.Alph1}% 65
+\BOOKMARK [1][-]{section.Alph1.2}{Identificaci\363 de dispositius}{appendix.Alph1}% 66
+\BOOKMARK [0][-]{appendix.Alph2}{??? ???????????? ????}{}% 67
