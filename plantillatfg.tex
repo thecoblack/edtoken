@@ -564,6 +564,23 @@ en FPGAs mediante High Level Synthesis}
 % Además, haría falta tener una sección o apartado de conclusiones en la que 
 % se determine cuál es la arquitectura seleccionada como candidata 
 % (entiendo que la FPGA) y por qué. 
+   
+   \begin{table}[h]
+      \begin{center}
+         \begin{tabular}{|l|c|c|c|c|}
+            \hline
+            Caracteristicas           & CPU & GPU & FPGA  & ASIC \\ \hline
+            Rendimiento               &  x  &     &  x    &      \\ \hline
+            Programabilidad           &  x  &     &  x    &      \\ \hline
+            Adaptabilidad             &  x  &     &  x    &      \\ \hline
+            Computacion paralela      &  x  &     &  x    &      \\ \hline
+            Aplicacion en tiempo real &  x  &     &  x    &      \\ 
+            \hline
+         \end{tabular}
+         \caption{Comparativa CPU, GPU, FPGA, ASIC}
+         \label{tab:cpu_gpu_fpga_asic}
+      \end{center}
+   \end{table}
 
 \chapter{Configuracion y ''Workflow'' en tecnologias FPGA}
 
@@ -576,6 +593,9 @@ en FPGAs mediante High Level Synthesis}
    Estos bloques estrito en algun lenguaje RTL son pequeñas microarquitecturas
    configuradas para tener sus propias entradas como inputs o entradas de reloj
    y salidas. 
+
+   En la actualidad, tenemos a nuestro alcance muchas herramientas, ya sean, lenguajes
+   de descripcion, de proposito general, metodologias de diseño
 
 \section{Lenguajes de descripción}
 
@@ -878,17 +898,13 @@ en FPGAs mediante High Level Synthesis}
       aprendizaje es minimo y solo te basas en unas pautas para llegar a
       conseguir un codigo sintetizable en un lenguaje de proposito general, algo
       mucho mas comun en el mundo tecnolgico a dia de hoy.
-
-   \subsection{Coste/Eficiencia}
-
-      En esta caracteristica, la tecnologia HLS sale ganadora, por su reduccion
-      de fundamentos a una simple guia de metodologias y tambien a la
-      adaptabilidad hacia al problema, haciendo que el tiempo usado para ello
-      sea menor que en lenguajes HDL, los cuales hay la necesidad de aprender
-      ciertos fundamentos sobre el diseño digital y ademas sobre el lenguaje a
-      utilizar.
-\newpage
 \section{Conclusion}
+
+   Finalmente, a modo de conclusion, vamos a comparar mediante la tabla
+   \ref{tab:hdl_vs_hls}, las dos formas actuales de diseñar un circuito para un
+   proposito, en esta tabla denotamos cual de las dos tecnologias sale ganadora
+   para cada caracteristica de las tratadas en el capitulo anterior, para
+   finalmente llegar a una conclusion basandonos en el coste/eficiencia.
 
    \begin{table}[h]
       \begin{center}
@@ -904,6 +920,20 @@ en FPGAs mediante High Level Synthesis}
          \label{tab:hdl_vs_hls}
       \end{center}
    \end{table}
+
+   Analizando la tabla desde un punto coste/eficiencia, vemos que el HLS sale
+   ganador en la tabla \ref{tab:hdl_vs_hls}, ya que este tiene mas
+   caracteristicas a favor que los lenguajes HDL. Esto se debe a la reduccion de
+   fundamentos para poder utilizarla y su flujo de dise\~{n}o, el cual es un
+   ciclo, donde el fallo redirige a la primera fase para volver a tratar el
+   problema de diferente forma y dejando de lado el RTL o simplemente volver a
+   tratar el problema por un posible cambio. No obstante, en cuanto al
+   rendimiento, los lenguajes HLD, son mas eficiente, ya que la optimizacion es
+   mas cercana a nivel bajo, cosa que el HLS es parte de la abstraccion y por
+   tanto la optimizacion por el bajo nivel no esta pensada.
+   
+   Por tanto, mirando desde un punto coste/eficiencia el HLS es mejor opcion
+   frente los lenguajes HDL.
 
 
 \chapter{Vitis High-Level Synthesis}

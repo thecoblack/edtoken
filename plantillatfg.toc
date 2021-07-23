@@ -47,8 +47,7 @@
 \contentsline {subsection}{\numberline {4.4.1}Rendimiento}{19}{subsection.4.4.1}%
 \contentsline {subsection}{\numberline {4.4.2}Flexibilidad}{19}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}Aprendizaje}{19}{subsection.4.4.3}%
-\contentsline {subsection}{\numberline {4.4.4}Coste/Eficiencia}{19}{subsection.4.4.4}%
-\contentsline {section}{\numberline {4.5}Conclusion}{20}{section.4.5}%
+\contentsline {section}{\numberline {4.5}Conclusion}{19}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Vitis High-Level Synthesis}{21}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Interfaces}{21}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Limitaciones}{21}{section.5.2}%
@@ -68,7 +67,7 @@
 \contentsline {section}{\numberline {8.3}TMP o Template metaprograming}{27}{section.8.3}%
 \contentsline {chapter}{\numberline {9}Version Final: Red neuronal}{29}{chapter.9}%
 \contentsline {chapter}{\numberline {10}Conclusions}{31}{chapter.10}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{33}{chapter*.14}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{33}{chapter*.15}%
 \noindent \hrulefill \par 
 \appendicesname \par 
 \contentsline {chapter}{\numberline {A}Configuració del sistema}{35}{appendix.Alph1}%
