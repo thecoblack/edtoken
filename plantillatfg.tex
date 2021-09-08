@@ -584,18 +584,26 @@ en FPGAs mediante High Level Synthesis}
 
 \chapter{Configuracion y ''Workflow'' en tecnologias FPGA}
 
-   Como se ha mencionado en otros apartados el diseño en tecnologias FPGA
-   sigue siendo costoso y complejo por su forma de tratar con la
-   arquitectura, la forma tradicional de tratar de esta es mediante leguajes de
-   diseño RTL como Verilog o VHDL que permite diseñar la logica en bloques
-   logicos.
-
-   Estos bloques estrito en algun lenguaje RTL son pequeñas microarquitecturas
-   configuradas para tener sus propias entradas como inputs o entradas de reloj
-   y salidas. 
-
-   En la actualidad, tenemos a nuestro alcance muchas herramientas, ya sean, lenguajes
-   de descripcion, de proposito general, metodologias de diseño
+   Actuamente existen varias forma de diseñar circuito digitales con menos o mas
+   abstraccion en el diseño, como los lenguajes descripcion o herramientas que
+   generan bloques a partir de lenguajes de alto nivel de proposito general, los
+   supuestos High Level Synthesis.
+   
+   Algunos de estos lenguajes HDL varian en especificaciones segun la marca que
+   tenga detras, aunque algunas de ellas con el tiempo han sido capazes de
+   adaptarse a estandares proupuestos y revisados por el Instituto de Ingenieros
+   Electrico y Electronicos o IEEE, dotando a estos funcionalidad en cualquier
+   diseño independientement de la marca.
+   
+   Con el avanze tecnologico, al igual que los lenguajes HDL se crearon para
+   suplir la carencia de eficiencia del diseño tradicional, se crearon los High
+   Level Synthesis, capaces de generar bloques RTL automaticamente. No obstante,
+   esta herramienta lleva a replantear el flujo de diseño tradicional, descrito
+   en \ref{md_hdl} , el cual era usado por los lenguajes de descripcion HDL, lo
+   que conlleva  a un nuevo esquema en cuanto a flujo de diseño en los HLS, que
+   describiremos en \ref{md_hls}. Por ende, en este capitulo nos centraremos en
+   describir las caracteristicas de los HDL y HLS juntamente con sus metodologia
+   de diseño y por ultimo, compararemos la dos tecnolgias.
 
 \section{Lenguajes de descripción}
 
@@ -695,11 +703,7 @@ en FPGAs mediante High Level Synthesis}
       Cuanto a su forma de describir un diseño este, solamente acepta dos formas
       de descripcion de las comentadas anteriormente, estructural y corporamental.
      
-   \subsection{Ventajas de los lenguajes HDL}
-
-
-   
-   \subsection {Metodologia de diseño}
+   \subsection {Metodologia de diseño} \label{md_hdl}
 
       Cuanto a la metodologia de diseño en lenguajes HDL encontrampos tres
       etapas, las cuales son subdividibles en otras tareas. Estas tres etapas
@@ -813,7 +817,7 @@ en FPGAs mediante High Level Synthesis}
 
    \newpage
 
-   \subsection{Metodologia de dise\~{n}o}
+   \subsection{Metodologia de dise\~{n}o} \label{md_hls}
 
       El HLS hace el proceso de diseño mucho mas siplificado por el uso de
       lenguajes de propositos generales, como C o C++, algo mucho mas
@@ -937,16 +941,47 @@ en FPGAs mediante High Level Synthesis}
 
 
 \chapter{Vitis High-Level Synthesis}
-   \section {Interfaces}
-   \section {Limitaciones}
-   \section {Directivas}
-   \section {Librerias}
+   \section {Vitis HLS Desing Flow} %items - limitaciones, directivas, librerias 247
+   \section {Interfaz AXI}
+      Actualmente la comunicacion entre puertos del RTL generado por el HLS de Xillinx,
+      se produce mediante la interfaz AXI. 
+      
+      \begin{figure}[h]
+         \centering
+         \includegraphics[width=6cm]{img/cap5/interface_types.png}
+         \caption{Interfaces AXI disponibles en el HLS}
+         \label{fig:hls_Interfaces}
+      \end{figure}
+      
+      Dentro de esta interfaz AXI4 la cual corresponde a la version AMBA 4.0,
+      encontramos trest tipos:
+      \begin{itemize}
+         \item \textbf{AXI4}: Esta suele utilizarse en los puertos donde los
+         requisitos de asiganacion de la memoria necesita un alto rendimento.
+         \item \textbf{AXI4-Lite}
+      \end{itemize}
+      
 
-\chapter{Preparacion del entorno}
+      \subsection {Interfaz AXI4-Lite}
+      \subsection {Interfaz AXI4 Master}
+      \subsection {Interfaz AXI4 Stream}
+   \section {Port-level de entrada/salida}
+      \subsection{No protocols}
+      \subsection{Wire handshakes}
+      \subsection{Memory inteface}
+   \section {Block-level Protocol}
+\chapter{El entorno}
+   \section {Entorno de desarollo} % ide vitis
+   \section {Reporte de la sintesis} % pag 68
+   \section {Analizar el resultado de la sintesis} % pag 75
+   \section {Waveform viewer} %pag 102
+   
 
 \chapter{Realizar una codigo sintetizable}
+   \section {Limitaciones}
 \chapter{Optimizacion del codigo}
 \section{Directivas \#pragma}
+   \section {Directivas}
 \section{Librerias HLS}
       \subsection{Arbitrary Precision Data Types}
       \subsection{HLS Math}
