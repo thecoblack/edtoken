@@ -49,39 +49,38 @@
 \contentsline {section}{\numberline {4.5}Conclusion}{19}{section.4.5}%
 \contentsline {chapter}{\numberline {5}Vitis High-Level Synthesis}{21}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Vitis HLS Desing Flow}{21}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Interfaz AXI}{21}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Interfaz AXI4-Lite}{22}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Interfaz AXI4 Master}{22}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Interfaz AXI4 Stream}{22}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Port-level de entrada/salida}{22}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}No protocols}{22}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Wire handshakes}{22}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Memory inteface}{22}{subsection.5.3.3}%
-\contentsline {section}{\numberline {5.4}Block-level Protocol}{22}{section.5.4}%
-\contentsline {chapter}{\numberline {6}El entorno}{23}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Entorno de desarollo}{23}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Reporte de la sintesis}{23}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Analizar el resultado de la sintesis}{23}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Waveform viewer}{23}{section.6.4}%
-\contentsline {chapter}{\numberline {7}Realizar una codigo sintetizable}{25}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Limitaciones}{25}{section.7.1}%
-\contentsline {chapter}{\numberline {8}Optimizacion del codigo}{27}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Directivas \#pragma}{27}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Directivas}{27}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Librerias HLS}{27}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Arbitrary Precision Data Types}{27}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}HLS Math}{27}{subsection.8.3.2}%
-\contentsline {subsection}{\numberline {8.3.3}HLS Video}{27}{subsection.8.3.3}%
-\contentsline {subsection}{\numberline {8.3.4}HLS IP}{27}{subsection.8.3.4}%
-\contentsline {subsection}{\numberline {8.3.5}HLS Linear Algebra}{27}{subsection.8.3.5}%
-\contentsline {subsection}{\numberline {8.3.6}HLS DSP}{27}{subsection.8.3.6}%
-\contentsline {section}{\numberline {8.4}TMP o Template metaprograming}{27}{section.8.4}%
-\contentsline {chapter}{\numberline {9}Version Final: Red neuronal}{29}{chapter.9}%
-\contentsline {chapter}{\numberline {10}Conclusions}{31}{chapter.10}%
-\contentsline {chapter}{Bibliograf\'{\i }a}{33}{chapter*.16}%
+\contentsline {section}{\numberline {5.2}Advanced Micro-controller Bus Architecture}{21}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Especificanción AXI}{22}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Xillinx AXI4}{23}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Port-level de entrada/salida}{23}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}No protocols}{23}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Wire handshakes}{23}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Memory inteface}{23}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}Block-level Protocol}{23}{section.5.5}%
+\contentsline {chapter}{\numberline {6}El entorno}{25}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Entorno de desarollo}{25}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Reporte de la sintesis}{25}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Analizar el resultado de la sintesis}{25}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Waveform viewer}{25}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Realizar una codigo sintetizable}{27}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Limitaciones}{27}{section.7.1}%
+\contentsline {chapter}{\numberline {8}Optimizacion del codigo}{29}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Directivas \#pragma}{29}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Directivas}{29}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Librerias HLS}{29}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Arbitrary Precision Data Types}{29}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}HLS Math}{29}{subsection.8.3.2}%
+\contentsline {subsection}{\numberline {8.3.3}HLS Video}{29}{subsection.8.3.3}%
+\contentsline {subsection}{\numberline {8.3.4}HLS IP}{29}{subsection.8.3.4}%
+\contentsline {subsection}{\numberline {8.3.5}HLS Linear Algebra}{29}{subsection.8.3.5}%
+\contentsline {subsection}{\numberline {8.3.6}HLS DSP}{29}{subsection.8.3.6}%
+\contentsline {section}{\numberline {8.4}TMP o Template metaprograming}{29}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Version Final: Red neuronal}{31}{chapter.9}%
+\contentsline {chapter}{\numberline {10}Conclusions}{33}{chapter.10}%
+\contentsline {chapter}{Bibliograf\'{\i }a}{35}{chapter*.16}%
 \noindent \hrulefill \par 
 \appendicesname \par 
-\contentsline {chapter}{\numberline {A}Configuració del sistema}{35}{appendix.Alph1}%
-\contentsline {section}{\numberline {A.1}Fase d'inicialització}{35}{section.Alph1.1}%
-\contentsline {section}{\numberline {A.2}Identificació de dispositius}{35}{section.Alph1.2}%
-\contentsline {chapter}{\numberline {B}??? ???????????? ????}{37}{appendix.Alph2}%
+\contentsline {chapter}{\numberline {A}Configuració del sistema}{37}{appendix.Alph1}%
+\contentsline {section}{\numberline {A.1}Fase d'inicialització}{37}{section.Alph1.1}%
+\contentsline {section}{\numberline {A.2}Identificació de dispositius}{37}{section.Alph1.2}%
+\contentsline {chapter}{\numberline {B}??? ???????????? ????}{39}{appendix.Alph2}%

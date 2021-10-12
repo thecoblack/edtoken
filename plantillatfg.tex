@@ -942,29 +942,106 @@ en FPGAs mediante High Level Synthesis}
 
 \chapter{Vitis High-Level Synthesis}
    \section {Vitis HLS Desing Flow} %items - limitaciones, directivas, librerias 247
-   \section {Interfaz AXI}
-      Actualmente la comunicacion entre puertos del RTL generado por el HLS de Xillinx,
-      se produce mediante la interfaz AXI. 
-      
-      \begin{figure}[h]
-         \centering
-         \includegraphics[width=6cm]{img/cap5/interface_types.png}
-         \caption{Interfaces AXI disponibles en el HLS}
-         \label{fig:hls_Interfaces}
-      \end{figure}
-      
-      Dentro de esta interfaz AXI4 la cual corresponde a la version AMBA 4.0,
-      encontramos trest tipos:
-      \begin{itemize}
-         \item \textbf{AXI4}: Esta suele utilizarse en los puertos donde los
-         requisitos de asiganacion de la memoria necesita un alto rendimento.
-         \item \textbf{AXI4-Lite}
-      \end{itemize}
-      
+   \section {Advanced Micro-controller Bus Architecture}
 
-      \subsection {Interfaz AXI4-Lite}
-      \subsection {Interfaz AXI4 Master}
-      \subsection {Interfaz AXI4 Stream}
+      AMBA o ''Advanced Micro-controller Bus Architecture'', es un conjunto de 
+      especificaciones de libre acceso, especializada en la comunicación entre
+      bloques, que obtuvo una crecida de popularidad hasta llegar un estandar
+      para la conexion, gestion y reutilizacion de bloques funcionales en SoCs.
+
+      Aprofundizando un poco mas en el estandar AMBA, esta ofrece diversas
+      caracteristacas, encontramos:
+
+      \begin{itemize}
+         \item \textbf{Flexibilidad: } Frente a la amplia variedad de SoC, con
+         difrentes caracteristacas, la reutilizacion de bloques funcionales
+         puede a llegar ser costosa.  Por tanto, AMBA intenta cumplir con estos
+         requisitos, mediante disitintos opciones de diseño y  dotando de
+         escalabidad a los procesadores compatibles. 
+         \item \textbf{Adopcion generalizada: } AMBA, es actualmente el estandar
+         industrial  más utilzado en los estandares basados en IP en todo el
+         mundo.
+         \item \textbf{Compatibilidad: } A dia de hoy, encontramos diferentes
+         diseños ofrecidos por diferentes proveedores. Otorgando AMBA,
+         especificaciones que aseguran compatibilidad y escalabilidad entre
+         componentes IP.
+         \item \textbf{Soporte: } La adopcion de las especificacion de AMBA por
+         la industria ha resultado en la creacion de herramientas y productos IP
+         por terceros. Gracias a esto AMBA, obtiene un amplio soporte en los
+         systemas basados en sus especificaciones.
+      \end{itemize}
+
+      No obstante, en la actualidad la ultima version de AMBA, es AMBA5, sin
+      emabargo Xillinx solo adopta de momento AMBA4, por tanto desarollaremos
+      sus escificaciones a partir de la version que utiliza Xillinx.
+      
+      En cuanto a AMBA4, esta compuesta por diversas especificaciones, no
+      obstante sus dos especificaciones mas desatacadas son ACE, destinada a 
+      compartir datos entre componentes del sistema mediante distintos
+      protocolos dedicados a la coherencia de los datos, mientras que la
+      especificacion AXI, es utilizada para el desarollo de esta trabajo, la
+      cual es utilizada en un amplio mercado, desde apliaciones destinadas a un
+      alto rendimiento a computacion movil, redes y sector automovilístico.
+
+      \subsection {Especificanción AXI}
+
+         Como se ha comentado anteriormente, en este trabajo nos centraremos en
+         las interfaces AXI, ya que Xillinx utiliza estas, para el manejo de los
+         bloques IP. Por tanto es este apartado nos centraremos en profundizar
+         en la especificacion AXI.
+
+         La especificacion AXI o ''Advanced eXtensible Interface'', esta se une
+         a AMBA en la version AMBA3 en 2003 y actualmente aun la podemos
+         encontras en las versiones de AMBA4 y AMBA5.
+         
+         En cuanto a este, AXI es capaz de soportar diseños de alto rendimiento
+         y frecuencia para efectuar las comunicaciónes de componentes de gestion
+         y subordinados, ademas este es adecuado para proporcionar diseño de
+         baja latencia para un amplio ancho de banda, lo que permite realizar
+         diseños más rápidos, con la capacidad  funcionar en altas frequencias
+         sin necesidad de crear interconexiones complejas para ello y asi poder
+         conseguir bajas latencias con menor complejidad. Por otra parte AXI es
+         capaz de proporcionar flexiblidad e independencia en la implementacion
+         de arquitecturas de interconexion.
+
+         Por otro lado, AXI ofrece una amplia gama de funciones, que incluyen:
+         \begin{no_desc}
+            \item Fases de direccion, control y datos independientes 
+            \item Soporte para trasferencias de datos no alineados
+            \item Solo utiliza las transaciones basadas en ''burst'', cuando 
+            empiezan con una direccion inicial.
+            \item Separa los canales de escritura y lectura, para activar el DMA.
+            \item Capacidad para emitir multiples direciones pendientes
+            \item Completado de transacciones fuera de orden
+            \item Soporte para operaciones atomicas
+         \end{no_desc}
+
+         Por otra parte AXI dispone de tres interfaces mediante la version de AMBA4, 
+         AXI4, AXI4-Lite, AXI4-Stream.
+      
+            \begin{figure}[h]
+               \centering
+               \includegraphics[width=6cm]{img/cap5/interface_types.png}
+               \caption{Interfaces AXI disponibles en el HLS}
+               \label{fig:hls_Interfaces}
+            \end{figure}
+
+         Cada una de estas interfaces estas destinadas a usos concretos, en el
+         caso de AXI4, esta se utiliza para realizar las transferencias en
+         memoria con alto rendimiento permitiendo el  ''burst'' de datos en la
+         misma tranferencia, no obstante en la interfaz AXI4-Lite, esta se trata
+         de una simplificación de la anterior, la cual realiza loo mismo que la
+         anterior pero solamente con trasferencia simples. Por ultimo, nos queda
+         la interfaz AXI4-Stream, dedicada a la transmision de alta velocidad,
+         donde el maestro transfiere datos a un esclavo. 
+
+         AXI, como se ha comentado anteriormente es un protocolo de comunicacion,
+         y para ello tine definio un mecanismo de ''Handshake'', para establecer la 
+         comunicacion entre el maestro y el esclavo.
+         
+
+   \section {Xillinx AXI4}
+
    \section {Port-level de entrada/salida}
       \subsection{No protocols}
       \subsection{Wire handshakes}
