@@ -33,7 +33,7 @@ the key.
 Now, it is time to set the values for {user} and {?token}.
 
     edtoken set <yourprofile> -k user -v tothemoon
-    edtoken set <yourprofile> -k token -v <secret token> --sym <key to encrypt with AES-256>
+    edtoken set <yourprofile> -k token --sym
 
 Finally, you just have wait at the moment to use the command and execute the
 following line.
