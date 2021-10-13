@@ -38,4 +38,4 @@ Now, it is time to set the values for {user} and {?token}.
 Finally, you just have wait at the moment to use the command and execute the
 following line.
 
-    edtoken exec <yourprofile> --sym <key to decrypt>
+    edtoken exec <yourprofile> --sym
