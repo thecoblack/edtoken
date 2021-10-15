@@ -12,7 +12,7 @@ safe.
 Install EDToken using:
 
     git clone https://github.com/thecoblack/edtoken.git
-    python setup.py install
+    python setup.py install --user
 
 ## Usage
 
