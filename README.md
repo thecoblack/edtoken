@@ -26,7 +26,7 @@ execute in the future, some example could be:
 
     edtoken set <yourprofile> --temp "git push https://{?token}@github.com/{user}/yourcoolrepository.git"
 
-As your can see, edtoke use a {key} to replace it for the key value, however to
+As you can see, edtoken use a {key} to replace it for the key value, however to
 mark that it is a key with a encrypted values, you need add a "?" in fron of
 the key.
 
