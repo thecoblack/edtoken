@@ -34,7 +34,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\usepackage[13-19]{pagesel}
-
+\usepackage{amsmath}
 \newenvironment{no_desc}{
    \begin{itemize}
       \setlength{\itemsep}{0.2pt}
@@ -939,109 +939,297 @@ en FPGAs mediante High Level Synthesis}
    Por tanto, mirando desde un punto coste/eficiencia el HLS es mejor opcion
    frente los lenguajes HDL.
 
+\chapter {advanced micro-controller bus architecture}
+
+   amba o ''advanced micro-controller bus architecture'', es un conjunto de 
+   especificaciones de libre acceso, especializada en la comunicación entre
+   bloques, que obtuvo una crecida de popularidad hasta llegar un estandar
+   para la conexion, gestion y reutilizacion de bloques funcionales en socs.
+
+   aprofundizando un poco mas en el estandar amba, esta ofrece diversas
+   caracteristacas, encontramos:
+
+   \begin{itemize}
+      \item \textbf{flexibilidad: } frente a la amplia variedad de soc, con
+      difrentes caracteristacas, la reutilizacion de bloques funcionales
+      puede a llegar ser costosa.  por tanto, amba intenta cumplir con estos
+      requisitos, mediante disitintos opciones de diseño y  dotando de
+      escalabidad a los procesadores compatibles. 
+      \item \textbf{adopcion generalizada: } amba, es actualmente el estandar
+      industrial  más utilzado en los estandares basados en ip en todo el
+      mundo.
+      \item \textbf{compatibilidad: } a dia de hoy, encontramos diferentes
+      diseños ofrecidos por diferentes proveedores. otorgando amba,
+      especificaciones que aseguran compatibilidad y escalabilidad entre
+      componentes ip.
+      \item \textbf{soporte: } la adopcion de las especificacion de amba por
+      la industria ha resultado en la creacion de herramientas y productos ip
+      por terceros. gracias a esto amba, obtiene un amplio soporte en los
+      systemas basados en sus especificaciones.
+   \end{itemize}
+
+   no obstante, en la actualidad la ultima version de amba, es amba5, sin
+   emabargo xillinx solo adopta de momento amba4, por tanto desarollaremos
+   sus escificaciones a partir de la version que utiliza xillinx.
+   
+   en cuanto a amba4, esta compuesta por diversas especificaciones, no
+   obstante sus dos especificaciones mas desatacadas son ace, destinada a 
+   compartir datos entre componentes del sistema mediante distintos
+   protocolos dedicados a la coherencia de los datos, mientras que la
+   especificacion axi, es utilizada para el desarollo de esta trabajo, la
+   cual es utilizada en un amplio mercado, desde apliaciones destinadas a un
+   alto rendimiento a computacion movil, redes y sector automovilístico.
+
+   \section {especificanción axi}
+
+      como se ha comentado anteriormente, en este trabajo nos centraremos en
+      las interfaces axi, ya que xillinx utiliza estas, para el manejo de los
+      bloques ip. por tanto es este apartado nos centraremos en profundizar
+      en la especificacion axi.
+
+      la especificacion axi o ''advanced extensible interface'', esta se une
+      a amba en la version amba3 en 2003 y actualmente aun la podemos
+      encontras en las versiones de amba4 y amba5.
+      
+      en cuanto a este, axi es capaz de soportar diseños de alto rendimiento
+      y frecuencia para efectuar las comunicaciónes de componentes de gestion
+      y subordinados, ademas este es adecuado para proporcionar diseño de
+      baja latencia para un amplio ancho de banda, lo que permite realizar
+      diseños más rápidos, con la capacidad  funcionar en altas frequencias
+      sin necesidad de crear interconexiones complejas para ello y asi poder
+      conseguir bajas latencias con menor complejidad. por otra parte axi es
+      capaz de proporcionar flexiblidad e independencia en la implementacion
+      de arquitecturas de interconexion.
+
+      por otro lado, axi ofrece una amplia gama de funciones, que incluyen:
+      \begin{no_desc}
+         \item fases de direccion, control y datos independientes 
+         \item soporte para trasferencias de datos no alineados
+         \item solo utiliza las transaciones basadas en ''burst'', cuando 
+         empiezan con una direccion inicial.
+         \item separa los canales de escritura y lectura, para activar el dma.
+         \item capacidad para emitir multiples direciones pendientes
+         \item completado de transacciones fuera de orden
+         \item soporte para operaciones atomicas
+      \end{no_desc}
+
+      por otra parte axi dispone de tres interfaces mediante la version de amba4, 
+      axi4, axi4-lite, axi4-stream.
+   
+         \begin{figure}[h]
+            \centering
+            \includegraphics[width=6cm]{img/cap5/interface_types.png}
+            \caption{interfaces axi disponibles en el hls}
+            \label{fig:hls_interfaces}
+         \end{figure}
+
+      cada una de estas interfaces estas destinadas a usos concretos, en el
+      caso de axi4, esta se utiliza para realizar las transferencias en
+      memoria con alto rendimiento permitiendo el  ''burst'' de datos en la
+      misma tranferencia, no obstante en la interfaz axi4-lite, esta se trata
+      de una simplificación de la anterior, la cual realiza loo mismo que la
+      anterior pero solamente con trasferencia simples. por ultimo, nos queda
+      la interfaz axi4-stream, dedicada a la transmision de alta velocidad,
+      donde el maestro transfiere datos a un esclavo. 
+
+      \subsection { comunicacion en la especificacion axi }
+         axi, como se ha comentado anteriormente es un protocolo de transmision
+         de datos, y para ello tine definio un mecanismo de ''handshake'', para
+         establecer la comunicacion entre el maestro y el esclavo.
+
+
+         seguidamente, encontramos dos tipos de canales de lectura, que al igual
+         que los canales de escritura son de distinito uso y tienen sus propias
+         señales.  primeramente esta la tenemon el canal de direccion, donde el
+         maestro emitira una señal valid cuando la direcion sea valida y se
+         mantendra activada hasta que la señal ready del esclavo este activada,
+         mientras que en el canal de lectura de datos sera el esclavo quien
+         maneje la señal valid, que estara a uno en cuanto los datos utilizados
+         por este sean validos, y se mantendra activada hasta que la señal ready
+         del maestro activa.
+
+         en cuanto, al numero de canales, axi implementa en su especificacion
+         varios canales de escritura y lectura, los cuales se subdividen en
+         dos mas, que son utilzados uno para el control y los registro,
+         mientras que los datos canales de datos se destinan para la transmision
+         de estos.
+
+            \begin{figure}[h]
+               \centering
+               \includegraphics[width=10cm]{img/cap5/arquitectura_lecutra.png}
+               \caption{canales de lectura}
+               \label{fig:read_channel}
+            \end{figure}
+
+         como se puede apreciar en la \ref{fig:read_channel}, la interfaz
+         maestra, se encarga de enviar por el canal de lectura y control, las
+         diferentes señales necesaria para indicar la direccion de lecutra de
+         datos y todas las señales de control para ello. seguidamente el
+         esclavo, se encargara de enviar los datos requeridos mediante las
+         señales recibidas, esto se llevara a cargo por el canal de lectura de
+         datos, el cual se dedica a la transmision de los datos pedidos.
+
+            \begin{figure}[h]
+               \centering
+               \includegraphics[width=10cm]{img/cap5/arquitectura_escritura.png}
+               \caption{canales de escritura}
+               \label{fig:write_channels}
+            \end{figure}
+         
+         en cambio, en los canales de escritura, la interfaz esclava solamente
+         es receptora, a diferencia que en los canales de lectura y solamente
+         emitira respuesta del estado de la escritura. como se ve en la
+         \ref{fig:write_channels}, esta primeramente utiliza el canal de
+         registros para enviar las señales necesaria para indicar la direccion
+         para realizar la escritura y las señales de control. donde seguidamente
+         se utilizar el canal de ecritura de datos, para realizar la
+         transferencia de datos. por ultimo, para saber si todo a ido correcto o
+         ha habido algun fallo en el esclavo en el momento de escritura, este
+         utiliza un canal emisor, ''write response'', para indicar el estado.
+         
+         no obstante, en la especificacion axi, a diferencia de el axi4 y
+         axi4-lite, que ejecutaria las acciones de escritura y lectura de las
+         formas vista anteriromente, la interfaz axi-stream, solamente realiza
+         escritura de datos en rafaga. para ello, ambas partes deberan de tener
+         la interfaz adecuada, para asi poder transmitir de maestro a esclavo
+         por un canal unidercional los datos necesarios.
+
+      \subsection{señales disponibles}
+          
+         \begin{table}[h]
+            \begin{center}
+                  \begin{tabular}{|l|c|c|}
+                  \hline
+                  descripcion de la señal & escritura  &  lectura \\ \hline
+                  id, señal utilizada para la identificacion de multiples transmisiones en un solo canal    &  x  &     \\ \hline
+                  flexibilidad   &     &  x  \\ \hline
+                  aprendizaje    &     &  x  \\
+                  \hline
+               \end{tabular}
+               \caption{conclusion lenguajes hdl vs hls}
+               \label{tab:signal_desc}
+            \end{center}
+         \end{table}
+
+      \subsection{ Handshake }
+
+         este mecanismo se basa en el uso de dos señales, valid, la cual indica
+         si las señales de direcion/control y los datos son validos para la
+         fuente de transmision, mientras que, la señal ready, es utilizada por
+         el destinatario de los datos, para señalar que puede aceptar mas
+         informacion. este mecansimo se encuentra en cada uno de los canales
+         donde se transmite informacion, siendo estas señales propias de cada
+         canal.
+
+         estas señales son utilizadas de distinta forma dependiendo del tipo de
+         canal, en el caso de los canales de escritura, encontramos tres tipos
+         de canales, el canal de direccion/control, donde la señal valid sera
+         uno cuando la direccion que maneja el maestro sea valida, una vez esta
+         señal este activada el maestro tendra que mantener esta señal valid
+         activada hasta que la señal ready del esclavo este activada. por otra
+         parte, encontramos el canal de escritura de datos, donde el maestro
+         solamente tendra activada la señal vallid cuando los datos que
+         proporciona son validos, después al igual que en el canal mencionado
+         anteriormente, este esperara a que la señal ready del esclavo este
+         activada. por ultimo, encontramos el canal encargado de dar una
+         respuesta por parte del esclavo cuando la transferencia es finalizada.
+         este canal, el esclavo puede activar la señal de validacion, cuando
+         este haya generado una respuesta valida y tendra que mantenerse
+         activada hasta que el maestro tenga la señal de ready activada.
+
+      \subsection{ Operaciones de escritura y lectura }
+
+         Vista las señales disponibles en las interfaces AXI y el esquema del
+         proceso, ya podemos profundizar en las operaciones disponibles, siendo
+         estas, escritura y lectura. Primeramente, en el proceso de escritura,
+         como hemos visto anteriormente, el maestro debe proporcionar las
+         señales necesaria en su distintos canales de transmision, y finalmente
+         este recibira el estado de la transmision a traves del canal de
+         respuesta, el cual tiene las señales proporcionadas por el receptor de
+         los datos.
+
+            \begin{figure}[h]
+               \centering
+               \includegraphics[width=10cm]{img/cap5/500px-axi_write_transaction.svg.png}
+               \caption{proceso de escritura}
+               \label{fig:write_transaction}
+            \end{figure}
+
+         El proceso inicia en el canal de direccion/control, donde las señales
+         AWADDR, proporciona la direccion de escritura, ARSIZE, indicando el
+         tamaño de los datos, ARLEN, el tamaño de la rafaga y AWBURST como el
+         tipo de rafaga a utilizar. Seguidamente con las señales de control y
+         direccion sean validas, empiezara el proceso de ''handshake''. Después,
+         empezara la transmision de los datos a traves de WDATA, en el canal de
+         datos. Una vez terminado, se puede ver en \ref{fig:write_transaction}
+         que el esclavo utilizara BRESP para señalar cual es el estado del
+         proceso en el canal de respuesta.
+
+         En cuanto a la operacion de lectura, Como se puede ver en
+         \ref{fig:read_transaction}, que este solamente, necesita de dos canales
+         para la lectura de datos.
+
+            \begin{figure}[h]
+               \centering
+               \includegraphics[width=10cm]{img/cap5/1024px-AXI_read_transaction.svg.png}
+               \caption{proceso de escritura}
+               \label{fig:read_transaction}
+            \end{figure}
+
+         El proceso de lectura, el cual no difiere mucho del anterior operacion,
+         no necesita de un canal de respuesta por parte del esclavo. Por tanto,
+         por parte del canal de lectura de direcion/control, sera igual que en
+         el canal de escritura, mientras que en el canal de lectura de datos,
+         sera el maestro quien generara la señal del estatus del proceso o
+         RRESP.
+
+      \subsection{ Rafaga en la especificación AXI }
+
+      La especificacion AXI, esta basada en un protocolo de rafaga de datos, lo
+      que proporciona la capacidad de hacer multiples transferencia en una sola
+      solicitud, una utildad muy util en caso de transmitir una gran cantidad de
+      datos.
+
+      Actualmente, la especificacion cuenta con tres tipos de rafagas que pueden
+      ser selecionadas mediante la señal AWBURST o ARBURST. En primer lugar,
+      tenemos la opcion FIXED, la cual transmite la misma direcion en cada
+      ''beat''. Esta, opcione es interesante en el caso de acceder multiples
+      veces a la misma direccion de memoria. Por otra parte, encontramos la
+      opcion INCR, la cual es util para la lectura y escritura de datos en
+      partes colindantes en memoria.
+
+         \begin{center}
+            \begin{equation}
+               \mathbf{Direcci\acute{o}n_i = Direcci\acute{o}nInicial + i \cdot Tama \tilde{n}oTransferencia}
+            \end{equation}
+         \end{center}
+
+      Esta se basa en la direccion inicial, donde devolvera la direccion
+      dependiendo del tamaño del archivo y los ''beats'' transcurridos.
+      Finalmente, como ultima opcion esta WRAP, una opcion similar a la
+      anterior, no obstante, cuando esta exede el limite, se restablece la
+      direccion a la la direccion anterior.
+        
+            \begin{equation}
+               \begin{split}
+                  \mathbf{Direcci\acute{o}n_i = Limite + (Direcci\acute{o}nInicial + i \cdot Tama \tilde{n}oTransferencia)} \\
+                  \mathbf{mod (TamañoBurst \cdot Tama \tilde{n}oTransferencia)}
+               \end{split}
+            \end{equation}
+      
+      Donde, 
+
+         \begin{center}
+            \begin{equation}
+               \begin{split}
+                  \mathbf{Limite =  \left\lfloor\dfrac{Direcci\acute{o}nInicial}{NumeroBytes \cdot TamañoBurst}\right\rfloor  \cdot (NumeroBytes \cdot TamañoBurst)}
+               \end{split}
+            \end{equation}
+         \end{center}
 
 \chapter{Vitis High-Level Synthesis}
    \section {Vitis HLS Desing Flow} %items - limitaciones, directivas, librerias 247
-   \section {Advanced Micro-controller Bus Architecture}
-
-      AMBA o ''Advanced Micro-controller Bus Architecture'', es un conjunto de 
-      especificaciones de libre acceso, especializada en la comunicación entre
-      bloques, que obtuvo una crecida de popularidad hasta llegar un estandar
-      para la conexion, gestion y reutilizacion de bloques funcionales en SoCs.
-
-      Aprofundizando un poco mas en el estandar AMBA, esta ofrece diversas
-      caracteristacas, encontramos:
-
-      \begin{itemize}
-         \item \textbf{Flexibilidad: } Frente a la amplia variedad de SoC, con
-         difrentes caracteristacas, la reutilizacion de bloques funcionales
-         puede a llegar ser costosa.  Por tanto, AMBA intenta cumplir con estos
-         requisitos, mediante disitintos opciones de diseño y  dotando de
-         escalabidad a los procesadores compatibles. 
-         \item \textbf{Adopcion generalizada: } AMBA, es actualmente el estandar
-         industrial  más utilzado en los estandares basados en IP en todo el
-         mundo.
-         \item \textbf{Compatibilidad: } A dia de hoy, encontramos diferentes
-         diseños ofrecidos por diferentes proveedores. Otorgando AMBA,
-         especificaciones que aseguran compatibilidad y escalabilidad entre
-         componentes IP.
-         \item \textbf{Soporte: } La adopcion de las especificacion de AMBA por
-         la industria ha resultado en la creacion de herramientas y productos IP
-         por terceros. Gracias a esto AMBA, obtiene un amplio soporte en los
-         systemas basados en sus especificaciones.
-      \end{itemize}
-
-      No obstante, en la actualidad la ultima version de AMBA, es AMBA5, sin
-      emabargo Xillinx solo adopta de momento AMBA4, por tanto desarollaremos
-      sus escificaciones a partir de la version que utiliza Xillinx.
-      
-      En cuanto a AMBA4, esta compuesta por diversas especificaciones, no
-      obstante sus dos especificaciones mas desatacadas son ACE, destinada a 
-      compartir datos entre componentes del sistema mediante distintos
-      protocolos dedicados a la coherencia de los datos, mientras que la
-      especificacion AXI, es utilizada para el desarollo de esta trabajo, la
-      cual es utilizada en un amplio mercado, desde apliaciones destinadas a un
-      alto rendimiento a computacion movil, redes y sector automovilístico.
-
-      \subsection {Especificanción AXI}
-
-         Como se ha comentado anteriormente, en este trabajo nos centraremos en
-         las interfaces AXI, ya que Xillinx utiliza estas, para el manejo de los
-         bloques IP. Por tanto es este apartado nos centraremos en profundizar
-         en la especificacion AXI.
-
-         La especificacion AXI o ''Advanced eXtensible Interface'', esta se une
-         a AMBA en la version AMBA3 en 2003 y actualmente aun la podemos
-         encontras en las versiones de AMBA4 y AMBA5.
-         
-         En cuanto a este, AXI es capaz de soportar diseños de alto rendimiento
-         y frecuencia para efectuar las comunicaciónes de componentes de gestion
-         y subordinados, ademas este es adecuado para proporcionar diseño de
-         baja latencia para un amplio ancho de banda, lo que permite realizar
-         diseños más rápidos, con la capacidad  funcionar en altas frequencias
-         sin necesidad de crear interconexiones complejas para ello y asi poder
-         conseguir bajas latencias con menor complejidad. Por otra parte AXI es
-         capaz de proporcionar flexiblidad e independencia en la implementacion
-         de arquitecturas de interconexion.
-
-         Por otro lado, AXI ofrece una amplia gama de funciones, que incluyen:
-         \begin{no_desc}
-            \item Fases de direccion, control y datos independientes 
-            \item Soporte para trasferencias de datos no alineados
-            \item Solo utiliza las transaciones basadas en ''burst'', cuando 
-            empiezan con una direccion inicial.
-            \item Separa los canales de escritura y lectura, para activar el DMA.
-            \item Capacidad para emitir multiples direciones pendientes
-            \item Completado de transacciones fuera de orden
-            \item Soporte para operaciones atomicas
-         \end{no_desc}
-
-         Por otra parte AXI dispone de tres interfaces mediante la version de AMBA4, 
-         AXI4, AXI4-Lite, AXI4-Stream.
-      
-            \begin{figure}[h]
-               \centering
-               \includegraphics[width=6cm]{img/cap5/interface_types.png}
-               \caption{Interfaces AXI disponibles en el HLS}
-               \label{fig:hls_Interfaces}
-            \end{figure}
-
-         Cada una de estas interfaces estas destinadas a usos concretos, en el
-         caso de AXI4, esta se utiliza para realizar las transferencias en
-         memoria con alto rendimiento permitiendo el  ''burst'' de datos en la
-         misma tranferencia, no obstante en la interfaz AXI4-Lite, esta se trata
-         de una simplificación de la anterior, la cual realiza loo mismo que la
-         anterior pero solamente con trasferencia simples. Por ultimo, nos queda
-         la interfaz AXI4-Stream, dedicada a la transmision de alta velocidad,
-         donde el maestro transfiere datos a un esclavo. 
-
-         AXI, como se ha comentado anteriormente es un protocolo de comunicacion,
-         y para ello tine definio un mecanismo de ''Handshake'', para establecer la 
-         comunicacion entre el maestro y el esclavo.
-         
-
    \section {Xillinx AXI4}
-
    \section {Port-level de entrada/salida}
       \subsection{No protocols}
       \subsection{Wire handshakes}

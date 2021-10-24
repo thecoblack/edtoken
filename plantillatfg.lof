@@ -19,7 +19,12 @@
 \contentsline {figure}{\numberline {4.3}{\ignorespaces Proceso High Level Synthesis\relax }}{16}{figure.caption.12}%
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Proceso de diseño en el High Level Synthesis\relax }}{18}{figure.caption.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Interfaces AXI disponibles en el HLS\relax }}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces interfaces axi disponibles en el hls\relax }}{22}{figure.caption.15}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces canales de lectura\relax }}{23}{figure.caption.16}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces canales de escritura\relax }}{23}{figure.caption.17}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces proceso de escritura\relax }}{25}{figure.caption.19}%
+\contentsline {figure}{\numberline {5.5}{\ignorespaces proceso de escritura\relax }}{25}{figure.caption.20}%
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
