@@ -939,82 +939,82 @@ en FPGAs mediante High Level Synthesis}
    Por tanto, mirando desde un punto coste/eficiencia el HLS es mejor opcion
    frente los lenguajes HDL.
 
-\chapter {advanced micro-controller bus architecture}
+\chapter {Advanced Micro-controller Bus Architecture}
 
-   amba o ''advanced micro-controller bus architecture'', es un conjunto de 
+   Amba o ''Advanced Micro-controller Bus Architecture'', es un conjunto de 
    especificaciones de libre acceso, especializada en la comunicación entre
    bloques, que obtuvo una crecida de popularidad hasta llegar un estandar
-   para la conexion, gestion y reutilizacion de bloques funcionales en socs.
+   para la conexion, gestion y reutilizacion de bloques funcionales en SoCs.
 
-   aprofundizando un poco mas en el estandar amba, esta ofrece diversas
+   Aprofundizando un poco mas en el estandar amba, esta ofrece diversas
    caracteristacas, encontramos:
 
    \begin{itemize}
-      \item \textbf{flexibilidad: } frente a la amplia variedad de soc, con
+      \item \textbf{Flexibilidad: } Frente a la amplia variedad de soc, con
       difrentes caracteristacas, la reutilizacion de bloques funcionales
-      puede a llegar ser costosa.  por tanto, amba intenta cumplir con estos
+      puede a llegar ser costosa.  Por tanto, amba intenta cumplir con estos
       requisitos, mediante disitintos opciones de diseño y  dotando de
       escalabidad a los procesadores compatibles. 
-      \item \textbf{adopcion generalizada: } amba, es actualmente el estandar
+      \item \textbf{Adopcion generalizada: } Amba, es actualmente el estandar
       industrial  más utilzado en los estandares basados en ip en todo el
       mundo.
-      \item \textbf{compatibilidad: } a dia de hoy, encontramos diferentes
-      diseños ofrecidos por diferentes proveedores. otorgando amba,
+      \item \textbf{Compatibilidad: } A dia de hoy, encontramos diferentes
+      diseños ofrecidos por diferentes proveedores. Otorgando amba,
       especificaciones que aseguran compatibilidad y escalabilidad entre
       componentes ip.
-      \item \textbf{soporte: } la adopcion de las especificacion de amba por
+      \item \textbf{Soporte: } La adopcion de las especificacion de amba por
       la industria ha resultado en la creacion de herramientas y productos ip
-      por terceros. gracias a esto amba, obtiene un amplio soporte en los
+      por terceros. Gracias a esto AMBA, obtiene un amplio soporte en los
       systemas basados en sus especificaciones.
    \end{itemize}
 
-   no obstante, en la actualidad la ultima version de amba, es amba5, sin
-   emabargo xillinx solo adopta de momento amba4, por tanto desarollaremos
-   sus escificaciones a partir de la version que utiliza xillinx.
+   No obstante, en la actualidad la ultima version de AMBA, es AMBA5, sin
+   emabargo xillinx solo adopta de momento AMBA4, por tanto desarollaremos
+   sus escificaciones a partir de la version que utiliza Xillinx.
    
-   en cuanto a amba4, esta compuesta por diversas especificaciones, no
+   En cuanto a AMBA4, esta compuesta por diversas especificaciones, no
    obstante sus dos especificaciones mas desatacadas son ace, destinada a 
    compartir datos entre componentes del sistema mediante distintos
    protocolos dedicados a la coherencia de los datos, mientras que la
-   especificacion axi, es utilizada para el desarollo de esta trabajo, la
+   especificacion AXI, es utilizada para el desarollo de esta trabajo, la
    cual es utilizada en un amplio mercado, desde apliaciones destinadas a un
    alto rendimiento a computacion movil, redes y sector automovilístico.
 
-   \section {especificanción axi}
+   \section {Especificanción AXI}
 
-      como se ha comentado anteriormente, en este trabajo nos centraremos en
-      las interfaces axi, ya que xillinx utiliza estas, para el manejo de los
-      bloques ip. por tanto es este apartado nos centraremos en profundizar
-      en la especificacion axi.
+      Como se ha comentado anteriormente, en este trabajo nos centraremos en
+      las interfaces AXI, ya que xillinx utiliza estas, para el manejo de los
+      bloques ip. Por tanto es este apartado nos centraremos en profundizar
+      en la especificacion AXI.
 
-      la especificacion axi o ''advanced extensible interface'', esta se une
-      a amba en la version amba3 en 2003 y actualmente aun la podemos
-      encontras en las versiones de amba4 y amba5.
+      La especificacion AXI o ''Advanced Extensible Interface'', esta se une
+      a AMBA en la version AMBA3 en 2003 y actualmente aun la podemos
+      encontras en las versiones de AMBA4 y AMBA5.
       
-      en cuanto a este, axi es capaz de soportar diseños de alto rendimiento
+      En cuanto a este, AXI es capaz de soportar diseños de alto rendimiento
       y frecuencia para efectuar las comunicaciónes de componentes de gestion
       y subordinados, ademas este es adecuado para proporcionar diseño de
       baja latencia para un amplio ancho de banda, lo que permite realizar
       diseños más rápidos, con la capacidad  funcionar en altas frequencias
       sin necesidad de crear interconexiones complejas para ello y asi poder
-      conseguir bajas latencias con menor complejidad. por otra parte axi es
+      conseguir bajas latencias con menor complejidad. Por otra parte axi es
       capaz de proporcionar flexiblidad e independencia en la implementacion
       de arquitecturas de interconexion.
 
-      por otro lado, axi ofrece una amplia gama de funciones, que incluyen:
+      Por otro lado, axi ofrece una amplia gama de funciones, que incluyen:
       \begin{no_desc}
-         \item fases de direccion, control y datos independientes 
-         \item soporte para trasferencias de datos no alineados
-         \item solo utiliza las transaciones basadas en ''burst'', cuando 
+         \item Fases de direccion, control y datos independientes 
+         \item Soporte para trasferencias de datos no alineados
+         \item Solo utiliza las transaciones basadas en ''burst'', cuando 
          empiezan con una direccion inicial.
-         \item separa los canales de escritura y lectura, para activar el dma.
-         \item capacidad para emitir multiples direciones pendientes
-         \item completado de transacciones fuera de orden
-         \item soporte para operaciones atomicas
+         \item Separa los canales de escritura y lectura, para activar el dma.
+         \item Capacidad para emitir multiples direciones pendientes
+         \item Completado de transacciones fuera de orden
+         \item Soporte para operaciones atomicas
       \end{no_desc}
 
-      por otra parte axi dispone de tres interfaces mediante la version de amba4, 
-      axi4, axi4-lite, axi4-stream.
+      Por otra parte AXI dispone de tres interfaces mediante la version de AMBA4, 
+      AXI4, AXI4-Lite, AXI4-Stream.
    
          \begin{figure}[h]
             \centering
@@ -1023,24 +1023,23 @@ en FPGAs mediante High Level Synthesis}
             \label{fig:hls_interfaces}
          \end{figure}
 
-      cada una de estas interfaces estas destinadas a usos concretos, en el
-      caso de axi4, esta se utiliza para realizar las transferencias en
+      Cada una de estas interfaces estas destinadas a usos concretos, en el
+      caso de AXI4, esta se utiliza para realizar las transferencias en
       memoria con alto rendimiento permitiendo el  ''burst'' de datos en la
       misma tranferencia, no obstante en la interfaz axi4-lite, esta se trata
       de una simplificación de la anterior, la cual realiza loo mismo que la
-      anterior pero solamente con trasferencia simples. por ultimo, nos queda
+      anterior pero solamente con trasferencia simples. Por ultimo, nos queda
       la interfaz axi4-stream, dedicada a la transmision de alta velocidad,
       donde el maestro transfiere datos a un esclavo. 
 
-      \subsection { comunicacion en la especificacion axi }
-         axi, como se ha comentado anteriormente es un protocolo de transmision
+      \subsection { Comunicacion en la especificacion AXI }
+         AXI, como se ha comentado anteriormente es un protocolo de transmision
          de datos, y para ello tine definio un mecanismo de ''handshake'', para
          establecer la comunicacion entre el maestro y el esclavo.
 
-
-         seguidamente, encontramos dos tipos de canales de lectura, que al igual
+         Seguidamente, encontramos dos tipos de canales de lectura, que al igual
          que los canales de escritura son de distinito uso y tienen sus propias
-         señales.  primeramente esta la tenemon el canal de direccion, donde el
+         señales. Primeramente esta la tenemon el canal de direccion, donde el
          maestro emitira una señal valid cuando la direcion sea valida y se
          mantendra activada hasta que la señal ready del esclavo este activada,
          mientras que en el canal de lectura de datos sera el esclavo quien
@@ -1048,7 +1047,7 @@ en FPGAs mediante High Level Synthesis}
          por este sean validos, y se mantendra activada hasta que la señal ready
          del maestro activa.
 
-         en cuanto, al numero de canales, axi implementa en su especificacion
+         En cuanto, al numero de canales, AXI implementa en su especificacion
          varios canales de escritura y lectura, los cuales se subdividen en
          dos mas, que son utilzados uno para el control y los registro,
          mientras que los datos canales de datos se destinan para la transmision
@@ -1061,10 +1060,10 @@ en FPGAs mediante High Level Synthesis}
                \label{fig:read_channel}
             \end{figure}
 
-         como se puede apreciar en la \ref{fig:read_channel}, la interfaz
+         Como se puede apreciar en la \ref{fig:read_channel}, la interfaz
          maestra, se encarga de enviar por el canal de lectura y control, las
          diferentes señales necesaria para indicar la direccion de lecutra de
-         datos y todas las señales de control para ello. seguidamente el
+         datos y todas las señales de control para ello. Seguidamente el
          esclavo, se encargara de enviar los datos requeridos mediante las
          señales recibidas, esto se llevara a cargo por el canal de lectura de
          datos, el cual se dedica a la transmision de los datos pedidos.
@@ -1076,21 +1075,21 @@ en FPGAs mediante High Level Synthesis}
                \label{fig:write_channels}
             \end{figure}
          
-         en cambio, en los canales de escritura, la interfaz esclava solamente
+         En cambio, en los canales de escritura, la interfaz esclava solamente
          es receptora, a diferencia que en los canales de lectura y solamente
-         emitira respuesta del estado de la escritura. como se ve en la
+         emitira respuesta del estado de la escritura. Como se ve en la
          \ref{fig:write_channels}, esta primeramente utiliza el canal de
          registros para enviar las señales necesaria para indicar la direccion
-         para realizar la escritura y las señales de control. donde seguidamente
+         para realizar la escritura y las señales de control. Donde seguidamente
          se utilizar el canal de ecritura de datos, para realizar la
          transferencia de datos. por ultimo, para saber si todo a ido correcto o
          ha habido algun fallo en el esclavo en el momento de escritura, este
          utiliza un canal emisor, ''write response'', para indicar el estado.
          
-         no obstante, en la especificacion axi, a diferencia de el axi4 y
-         axi4-lite, que ejecutaria las acciones de escritura y lectura de las
+         No obstante, en la especificacion AXI, a diferencia de el AXI4 y
+         AXI4-Lite, que ejecutaria las acciones de escritura y lectura de las
          formas vista anteriromente, la interfaz axi-stream, solamente realiza
-         escritura de datos en rafaga. para ello, ambas partes deberan de tener
+         escritura de datos en rafaga. Para ello, ambas partes deberan de tener
          la interfaz adecuada, para asi poder transmitir de maestro a esclavo
          por un canal unidercional los datos necesarios.
 

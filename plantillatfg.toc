@@ -47,9 +47,9 @@
 \contentsline {subsection}{\numberline {4.4.2}Flexibilidad}{19}{subsection.4.4.2}%
 \contentsline {subsection}{\numberline {4.4.3}Aprendizaje}{19}{subsection.4.4.3}%
 \contentsline {section}{\numberline {4.5}Conclusion}{19}{section.4.5}%
-\contentsline {chapter}{\numberline {5}advanced micro-controller bus architecture}{21}{chapter.5}%
-\contentsline {section}{\numberline {5.1}especificanción axi}{22}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1} comunicacion en la especificacion axi }{23}{subsection.5.1.1}%
+\contentsline {chapter}{\numberline {5}Advanced Micro-controller Bus Architecture}{21}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Especificanción AXI}{22}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1} Comunicacion en la especificacion AXI }{23}{subsection.5.1.1}%
 \contentsline {subsection}{\numberline {5.1.2}señales disponibles}{24}{subsection.5.1.2}%
 \contentsline {subsection}{\numberline {5.1.3} Handshake }{24}{subsection.5.1.3}%
 \contentsline {subsection}{\numberline {5.1.4} Operaciones de escritura y lectura }{24}{subsection.5.1.4}%
