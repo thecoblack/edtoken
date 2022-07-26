@@ -1,7 +1,7 @@
 from os import mkdir
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 directories = ["/.edtoken"]
 for directory in directories:
