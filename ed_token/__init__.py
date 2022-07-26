@@ -3,13 +3,13 @@
 import argparse
 import getpass
 from subprocess import PIPE, Popen
-from sys import stdin
+from sys import path, stdin
 from typing import Any
 
-from .token_cipher import AsymTokenCipher, SymTokenCipher
-from .utils import paths
-from .utils.json_files import JsonFiles
-from .utils.templates import CommandTemplate
+from token_cipher import AsymTokenCipher, SymTokenCipher
+from utils import paths
+from utils.json_files import JsonFiles
+from utils.templates import CommandTemplate
 
 
 def parse_args() -> argparse.Namespace:
@@ -19,7 +19,7 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "main",
-        choices=["add", "set", "remove", "list", "show", "exec"],
+        choices=["add", "set", "remove", "show", "exec"],
         help="""
             EDToken
             Execute an action:
@@ -38,9 +38,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "-i", "--input", help="Set a value for the dictionary using a file or pipe",
     )
-    parser.add_argument("--sym", action="store_true",  help="Symetric key to encrypt or decrypt value")
     parser.add_argument(
-        "--asym", action="store_true", help="Uses asymetric encryptation to encrypt value"
+        "--sym", action="store_true", help="Symetric key to encrypt or decrypt value"
+    )
+    parser.add_argument(
+        "--asym",
+        action="store_true",
+        help="Uses asymetric encryptation to encrypt value",
     )
     parser.add_argument("--temp", nargs=1, help="Set a command template")
     parser.add_argument("-rp", "--rmprofile", nargs=1, help="Remove a profile")
@@ -154,14 +158,12 @@ command_map = {
 }
 
 
-def run_command(args: argparse.Namespace):
-    command_map[args.main](args)
-
-
 def main():
     args = parse_args()
-    run_command(args)
+    command_map[args.main](args)
+    # run_command(args)
 
 
 if __name__ == "__main__":
+    path.append(".")
     main()
