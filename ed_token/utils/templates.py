@@ -2,19 +2,22 @@ import re
 from base64 import b64decode
 from pathlib import Path
 
-from ..token_cipher import AsymTokenCipher, SymTokenCipher
-
-from . import paths
-from .json_files import JsonFiles
+from token_cipher import AsymTokenCipher, SymTokenCipher
+from utils import paths
+from utils.json_files import JsonFiles
 
 
 class CommandTemplate:
-    def __init__(self, name, cipher_type=None, decrypt_key=None):
+    def __init__(self, name="", cipher_type=None, decrypt_key=None, content=None):
         self.name = name
         self.decrypt_key = decrypt_key
         self.cipher_type = cipher_type
         self.json_file_obj = JsonFiles(paths.user_json())
-        self.content = self.json_file_obj.get_value(name)
+
+        if not content:
+            self.content = self.json_file_obj.get_value(name)
+        else:
+            self.content = content
         self.template = self.content["template"]
 
     def _get_blocks(self) -> list:

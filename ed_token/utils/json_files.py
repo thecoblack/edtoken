@@ -25,7 +25,7 @@ class JsonFiles:
             del self.content[key[0]][key[1]]
 
     def get_value(self, key: str) -> Optional[Any]:
-        return self.content[key]
+        return self.content[key] if key in self.content else None
 
     def list_keys(self, key: str = None) -> list:
         if key is not None:
@@ -40,7 +40,7 @@ class JsonFiles:
             self.content[key] = value
         else:
             value_key_dict = list(value.keys())[0]
-            self.content[key][value_key_dict] = value[value_key_dict]
+            self.content[key] = {value_key_dict: value[value_key_dict]}
 
     def save_changes(self):
         self.file = open(self.path, "w")
