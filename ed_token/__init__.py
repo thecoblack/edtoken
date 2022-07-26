@@ -6,10 +6,10 @@ from subprocess import PIPE, Popen
 from sys import path, stdin
 from typing import Any
 
-from token_cipher import AsymTokenCipher, SymTokenCipher
-from utils import paths
-from utils.json_files import JsonFiles
-from utils.templates import CommandTemplate
+from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
+from ed_token.utils import paths
+from ed_token.utils.json_files import JsonFiles
+from ed_token.utils.templates import CommandTemplate
 
 
 def parse_args() -> argparse.Namespace:
@@ -161,9 +161,7 @@ command_map = {
 def main():
     args = parse_args()
     command_map[args.main](args)
-    # run_command(args)
 
 
 if __name__ == "__main__":
-    path.append(".")
     main()

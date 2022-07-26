@@ -3,7 +3,7 @@ from typing import Dict, Optional, Union
 
 from pydantic import BaseModel
 
-from utils.templates import CommandTemplate
+from ed_token.utils.templates import CommandTemplate
 
 
 class Cipher(BaseModel):

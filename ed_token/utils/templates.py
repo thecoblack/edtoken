@@ -2,9 +2,9 @@ import re
 from base64 import b64decode
 from pathlib import Path
 
-from token_cipher import AsymTokenCipher, SymTokenCipher
-from utils import paths
-from utils.json_files import JsonFiles
+from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
+from ed_token.utils import paths
+from ed_token.utils.json_files import JsonFiles
 
 
 class CommandTemplate:
