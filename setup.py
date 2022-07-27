@@ -3,7 +3,7 @@ from pathlib import Path
 
 from setuptools import setup
 
-directories = ["/.edtoken"]
+directories = ["/.edtoken", "/.edtoken/cache"]
 for directory in directories:
     path = "%s%s" % (Path.home(), directory)
     if not Path(path).exists():

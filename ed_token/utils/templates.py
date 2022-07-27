@@ -18,7 +18,7 @@ class CommandTemplate:
             self.content = self.json_file_obj.get_value(name)
         else:
             self.content = content
-        self.template = self.content["template"]
+        self.template = self.content["template"] if "template" in self.content else "" 
 
     def _get_blocks(self) -> list:
         return re.findall(r"\{(\?{0}[\w-]+)\}", self.template)

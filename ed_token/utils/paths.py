@@ -7,3 +7,7 @@ def user_json() -> str:
 
 def config() -> str:
     return "%s/.edtoken/config.json" % (Path.home())
+
+
+def cache() -> str:
+    return "%s/.edtoken/cache" % (Path.home())
