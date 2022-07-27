@@ -36,11 +36,10 @@ def test_load_profile(tmp_path):
 
     edt = EDToken(path=path)
     edt.load_profile("test-profile")
-
     assert {edt.profile_id: edt.profile.content} == {"test-profile": {}}
 
-    with pytest.raises(Exception):
-        edt.load_profile("nonexisting-profile")
+    edt.load_profile("nonexisting-profile")
+    assert edt.profile == None
 
 
 def test_get_all_profiles(tmp_path):

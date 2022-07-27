@@ -25,13 +25,14 @@ class EDToken:
         with JsonFiles(self.path) as user_json_obj:
             user_json_obj.set_value(self.profile_id, self.profile.content)
 
-    def load_profile(self, profile_id: str) -> Profile:
+    def load_profile(self, profile_id: str) -> Optional[Profile]:
         profile: Optional[Dict]
         with JsonFiles(self.path) as user_json_obj:
             profile = user_json_obj.get_value(profile_id)
 
         if profile == None:
-            raise ProfileNotFound(f"Profile {profile_id} not found")
+            self.profile_id, self.profile = None, None
+            return None
         else:
             self.profile_id = profile_id
             self.profile = Profile(**{"id": profile_id, "content": profile})
