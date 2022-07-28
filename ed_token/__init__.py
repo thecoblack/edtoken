@@ -10,6 +10,7 @@ from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
 from ed_token.utils import paths
 from ed_token.utils.json_files import JsonFiles
 from ed_token.utils.templates import CommandTemplate
+from ed_token.wallet import Wallet
 
 
 def parse_args() -> argparse.Namespace:
@@ -19,16 +20,18 @@ def parse_args() -> argparse.Namespace:
 
     parser.add_argument(
         "main",
-        choices=["add", "set", "remove", "show", "exec"],
+        choices=["add", "set", "remove", "show", "exec", "wallet", "closewallet"],
         help="""
             EDToken
             Execute an action:
 
-            add     Add a EDToken profile
-            set     Set profile values using key and encryptation algorithms
-            remove  Removes a profile or keys in the profile
-            show    Show the profile data or show all profiles with ""
-            exec    Executes command template
+            add          Add a EDToken profile
+            set          Set profile values using key and encryptation algorithms
+            remove       Removes a profile or keys in the profile
+            show         Show the profile data or show all profiles with ""
+            exec         Executes command template
+            wallet       Decrypt a file set in the profile with the key "file"
+            closewallet  Encrypt the decrypted file 
         """,
     )
     parser.add_argument("profilename", help="Positional argument to select a profile")
@@ -95,6 +98,7 @@ def command_set(args: argparse.Namespace):
 
     with JsonFiles(paths.user_json()) as user_json_obj:
         user_json_obj.set_value(profile_name, {k: v})
+        print(user_json_obj.get_value(profile_name))
         user_json_obj.set_value(profile_name, {"crypted-values": crypted_values})
 
 
@@ -149,12 +153,39 @@ def command_exec(args: argparse.Namespace):
         print("\n")
 
 
+def command_wallet(args: argparse.Namespace):
+    profile_name: str = args.profilename
+    file_path: str = ""
+
+    with JsonFiles(paths.user_json()) as user_json_obj:
+        content: Dict = user_json_obj.get_value(profile_name)
+        file_path = content["file"]
+
+    wallet: Wallet = Wallet(file_path, paths.user_json(), profile_name)
+    key: str = _show_input_hiding("Key to decrypt file: ")
+    wallet.open_file(key)
+
+
+def command_closewallet(args: argparse.Namespace):
+    profile_name: str = args.profilename
+    file_path: str = ""
+
+    with JsonFiles(paths.user_json()) as user_json_obj:
+        content: Dict = user_json_obj.get_value(profile_name)
+        file_path = content["file"]
+
+    wallet: Wallet = Wallet(file_path, paths.user_json(), profile_name)
+    wallet.close_file()
+
+
 command_map = {
     "add": command_add,
     "set": command_set,
     "remove": command_remove,
     "show": command_show,
     "exec": command_exec,
+    "wallet": command_wallet,
+    "closewallet": command_closewallet,
 }
 
 

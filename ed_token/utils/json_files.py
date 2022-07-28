@@ -40,7 +40,10 @@ class JsonFiles:
             self.content[key] = value
         else:
             value_key_dict = list(value.keys())[0]
-            self.content[key] = {value_key_dict: value[value_key_dict]}
+            if key not in self.content:
+                self.content[key] = {}
+            self.content[key].update(value)
+            # self.content[key][value_key_dict] = value[value_key_dict]
 
     def save_changes(self):
         self.file = open(self.path, "w")

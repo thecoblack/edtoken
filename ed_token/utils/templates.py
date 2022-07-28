@@ -18,7 +18,7 @@ class CommandTemplate:
             self.content = self.json_file_obj.get_value(name)
         else:
             self.content = content
-        self.template = self.content["template"] if "template" in self.content else "" 
+        self.template = self.content["template"] if "template" in self.content else ""
 
     def _get_blocks(self) -> list:
         return re.findall(r"\{(\?{0}[\w-]+)\}", self.template)
@@ -36,6 +36,8 @@ class CommandTemplate:
     ) -> str:
         if self.cipher_type == "sym":
             for key, value in crypted_dict_values.items():
+                if not type(value) == dict:
+                    continue
                 encrypted_token = b64decode(value["token"].encode("utf-8"))
                 iv = b64decode(value["cbc_iv"].encode("utf-8"))
                 padding = value["padding_size"]

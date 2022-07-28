@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from ed_token.utils import paths
 from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
+from ed_token.utils import paths
 from ed_token.utils.exceptions import ProfileNotFound
 from ed_token.utils.json_files import JsonFiles
 from ed_token.utils.models import Cipher, Profile
