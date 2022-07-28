@@ -55,6 +55,10 @@ def parse_args() -> argparse.Namespace:
         "-rfp", "--rmfromprofile", nargs=1, help="Remove a key in the profile"
     )
 
+    parser.add_argument(
+        "-vv", "--verbose", action="store_true", help="Show the profile values after the applied changes"
+    )
+
     args = parser.parse_args()
     return args
 
@@ -98,7 +102,6 @@ def command_set(args: argparse.Namespace):
 
     with JsonFiles(paths.user_json()) as user_json_obj:
         user_json_obj.set_value(profile_name, {k: v})
-        print(user_json_obj.get_value(profile_name))
         user_json_obj.set_value(profile_name, {"crypted-values": crypted_values})
 
 
@@ -149,8 +152,7 @@ def command_exec(args: argparse.Namespace):
     with JsonFiles(paths.user_json()) as user_json_obj:
         command = (CommandTemplate(profile_name, cipher_type, key_cert)).get_command()
         print(f"Command executed: {command}")
-        proc = Popen(command.split())
-        print("\n")
+        proc = Popen(command, shell=True)
 
 
 def command_wallet(args: argparse.Namespace):
@@ -192,6 +194,7 @@ command_map = {
 def main():
     args = parse_args()
     command_map[args.main](args)
+    if args.verbose: command_show(args) 
 
 
 if __name__ == "__main__":
