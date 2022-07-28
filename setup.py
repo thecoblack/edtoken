@@ -40,5 +40,5 @@ setup(
     packages=["ed_token", "ed_token.utils"],
     classifiers=["Programming Language :: Python :: 3.8"],
     python_requires=">=3.8",
-    entry_points={"console_scripts": "edtoken=ed_token.__init__:main"},
+    entry_points={"console_scripts": "edtoken=ed_token.__main__:main"},
 )
