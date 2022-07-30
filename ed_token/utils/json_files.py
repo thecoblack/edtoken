@@ -19,9 +19,9 @@ class JsonFiles:
 
     def remove_key(self, key: Union[str, list]):
         self.modified_file = True
-        if type(key) == str:
+        if type(key) == str and key in self.content:
             del self.content[key]
-        else:
+        elif key[0] in self.content and key[1] in self.content[key[0]]:
             del self.content[key[0]][key[1]]
 
     def get_value(self, key: str) -> Optional[Any]:
@@ -43,7 +43,6 @@ class JsonFiles:
             if key not in self.content:
                 self.content[key] = {}
             self.content[key].update(value)
-            # self.content[key][value_key_dict] = value[value_key_dict]
 
     def save_changes(self):
         self.file = open(self.path, "w")

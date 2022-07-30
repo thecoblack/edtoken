@@ -17,46 +17,75 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="EDToken commands", formatter_class=argparse.RawTextHelpFormatter
     )
+    subparser = parser.add_subparsers(help="")
 
-    parser.add_argument(
-        "main",
-        choices=["add", "set", "remove", "show", "exec", "wallet", "closewallet"],
-        help="""
-            EDToken
-            Execute an action:
-
-            add          Add a EDToken profile
-            set          Set profile values using key and encryptation algorithms
-            remove       Removes a profile or keys in the profile
-            show         Show the profile data or show all profiles with ""
-            exec         Executes command template
-            wallet       Decrypt a file set in the profile with the key "file"
-            closewallet  Encrypt the decrypted file 
-        """,
+    wallet_parser = subparser.add_parser("wallet", help="Actions for using the wallet")
+    wallet_parser.formatter_class = argparse.RawTextHelpFormatter
+    wallet_group = wallet_parser.add_argument_group("Wallet")
+    wallet_group.add_argument(
+        "wallet_action",
+        choices=["open", "close"],
+        help=(
+            "\nopen   Decrypts file contents\n"
+            "close  Re-encrypt file contents\n\n"
+        )
     )
-    parser.add_argument("profilename", help="Positional argument to select a profile")
+    wallet_group.add_argument(
+        "profilename", help="Profile name to obtain the saved configurations"
+    )
 
-    parser.add_argument("-k", "--key", help="Set a id to get profile value")
-    parser.add_argument("-v", "--value", help="Set a profile value")
-    parser.add_argument(
+    list_parser = subparser.add_parser("list", help="Show all saved profiles")
+    list_group = list_parser.add_argument_group("List")
+    list_group.add_argument("list", action="store_true", help="")
+
+    profile_actions_parser = subparser.add_parser(
+        "profile", help="Actions to interact with the profiles"
+    )
+    profile_actions_parser.formatter_class = argparse.RawTextHelpFormatter
+    profile_actions_group = profile_actions_parser.add_argument_group("Profile actions")
+
+    profile_actions_group.add_argument(
+        "profile_action",
+        choices=["add", "set", "remove", "show", "exec"],
+        help=(
+            "\nadd          Add a EDToken profile\n"
+            "set          Set profile values using key and encryptation algorithms\n"
+            "remove       Removes a profile or keys in the profile\n"
+            "show         Show the profile data\n"
+            "exec         Executes command template\n\n"
+        ),
+    )
+    profile_actions_group.add_argument(
+        "profilename", help="Profile name to obtain the saved configurations"
+    )
+
+    profile_actions_group.add_argument(
+        "-k", "--key", help="Set a id to get profile value"
+    )
+    profile_actions_group.add_argument("-v", "--value", help="Set a profile value")
+    profile_actions_group.add_argument(
         "-i", "--input", help="Set a value for the dictionary using a file or pipe",
     )
-    parser.add_argument(
+    profile_actions_group.add_argument(
         "--sym", action="store_true", help="Symetric key to encrypt or decrypt value"
     )
-    parser.add_argument(
+    profile_actions_group.add_argument(
         "--asym",
         action="store_true",
         help="Uses asymetric encryptation to encrypt value",
     )
-    parser.add_argument("--temp", nargs=1, help="Set a command template")
-    parser.add_argument("-rp", "--rmprofile", nargs=1, help="Remove a profile")
-    parser.add_argument(
-        "-rfp", "--rmfromprofile", nargs=1, help="Remove a key in the profile"
+    profile_actions_group.add_argument("--temp", help="Set a command template")
+    profile_actions_group.add_argument(
+        "--file", help="Set the file path in the profile"
     )
-
-    parser.add_argument(
-        "-vv", "--verbose", action="store_true", help="Show the profile values after the applied changes"
+    profile_actions_group.add_argument(
+        "-rfp", "--rmfromprofile", help="Remove a key in the profile"
+    )
+    profile_actions_group.add_argument(
+        "-vv",
+        "--verbose",
+        action="store_true",
+        help="Show the profile values after the applied changes",
     )
 
     args = parser.parse_args()
@@ -98,7 +127,9 @@ def command_set(args: argparse.Namespace):
         if args.input is not None:
             _get_input(args.input)
         else:
-            v = args.temp[0]
+            v = args.temp
+    elif args.file is not None:
+        k, v = "file", args.file
 
     with JsonFiles(paths.user_json()) as user_json_obj:
         user_json_obj.set_value(profile_name, {k: v})
@@ -113,10 +144,14 @@ def command_add(args: argparse.Namespace):
 
 def command_remove(args: argparse.Namespace):
     profile_name = args.profilename
-    key = args.key
+    key = args.rmfromprofile
     with JsonFiles(paths.user_json()) as user_json_obj:
         if key is None:
-            user_json_obj.remove_key(profile_name)
+            response = ""
+            while not response in ["n", "y"]:
+                response = input("Are you sure? (y/n): ")
+            if response == "y":
+                user_json_obj.remove_key(profile_name)
         else:
             user_json_obj.remove_key([profile_name, key])
 
@@ -130,12 +165,9 @@ def list_all_profiles():
 
 def command_show(args: argparse.Namespace):
     profile = args.profilename
-    if profile == "":
-        list_all_profiles()
-    else:
-        with JsonFiles(paths.user_json()) as user_json_obj:
-            profile_content = user_json_obj.get_value(args.profilename)
-            print(JsonFiles.pretty_print(profile_content))
+    with JsonFiles(paths.user_json()) as user_json_obj:
+        profile_content = user_json_obj.get_value(args.profilename)
+        print(JsonFiles.pretty_print(profile_content))
 
 
 def command_exec(args: argparse.Namespace):
@@ -180,21 +212,26 @@ def command_closewallet(args: argparse.Namespace):
     wallet.close_file()
 
 
-command_map = {
-    "add": command_add,
-    "set": command_set,
-    "remove": command_remove,
-    "show": command_show,
-    "exec": command_exec,
-    "wallet": command_wallet,
-    "closewallet": command_closewallet,
-}
-
-
 def main():
+    profile_actions = {
+        "add": command_add,
+        "set": command_set,
+        "remove": command_remove,
+        "show": command_show,
+        "exec": command_exec,
+    }
+
+    wallet_actions = {"open": command_wallet, "close": command_closewallet}
+
     args = parse_args()
-    command_map[args.main](args)
-    if args.verbose: command_show(args) 
+    if "profile_action" in args:
+        profile_actions[args.profile_action](args)
+        if args.verbose:
+            command_show(args)
+    elif "wallet_action" in args:
+        wallet_actions[args.wallet_action](args)
+    elif "list" in args:
+        list_all_profiles()
 
 
 if __name__ == "__main__":
