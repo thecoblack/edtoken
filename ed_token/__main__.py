@@ -3,7 +3,7 @@
 import argparse
 import getpass
 from subprocess import PIPE, Popen
-from sys import path, stdin
+from sys import path, stdin, stdout, stderr
 from typing import Any
 
 from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
@@ -46,10 +46,11 @@ def parse_args() -> argparse.Namespace:
 
     profile_actions_group.add_argument(
         "profile_action",
-        choices=["add", "set", "remove", "show", "exec"],
+        choices=["add", "set", "get", "remove", "show", "exec"],
         help=(
             "\nadd          Add a EDToken profile\n"
             "set          Set profile values using key and encryptation algorithms\n"
+            "get          Get a profile value\n"
             "remove       Removes a profile or keys in the profile\n"
             "show         Show the profile data\n"
             "exec         Executes command template\n\n"
@@ -187,6 +188,17 @@ def command_exec(args: argparse.Namespace):
         proc = Popen(command, shell=True)
 
 
+def command_get(args: argparse.Namespace):
+    profile_name: str = args.profilename
+    key = args.key
+    with JsonFiles(paths.user_json()) as user_json_obj:
+        content: Dict = user_json_obj.get_value(profile_name)
+        if key in content:
+            print(content[key], file=stdout)
+        else:
+            print(None, file=stderr)
+
+
 def command_wallet(args: argparse.Namespace):
     profile_name: str = args.profilename
     file_path: str = ""
@@ -216,9 +228,11 @@ def main():
     profile_actions = {
         "add": command_add,
         "set": command_set,
+        "get": command_get,
         "remove": command_remove,
         "show": command_show,
         "exec": command_exec,
+        "get": command_get
     }
 
     wallet_actions = {"open": command_wallet, "close": command_closewallet}
