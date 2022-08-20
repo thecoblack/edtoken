@@ -54,3 +54,13 @@ def test_open_close_file(tmp_path, wallet):
         for i, line in enumerate(encrypted_file):
             assert encrypted_lines[i] == line
     assert not os.path.exists(cache_path)
+
+
+def test_open_close_file_already_exists(wallet):
+    wallet.open_file("test")
+    with pytest.raises(RuntimeError): 
+        wallet.open_file("test")
+
+    wallet.close_file()
+    with pytest.raises(RuntimeError): 
+        wallet.close_file()

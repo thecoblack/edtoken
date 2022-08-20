@@ -35,6 +35,9 @@ class Wallet:
         return decripted_file
 
     def open_file(self, decrypt_key: str) -> None:
+        if os.path.exists(self.cache_path):
+            raise RuntimeError("The file has already been decrypted")
+
         decripted_lines: List[str] = self.decrypt_file(decrypt_key)
         self.move_to_cache()
         with open(self.file_path, "w") as f:
@@ -48,6 +51,9 @@ class Wallet:
         shutil.copy(self.file_path, self.cache_path)
 
     def restore_file_from_cache(self) -> None:
-        os.remove(self.file_path)
-        shutil.copy(self.cache_path, self.file_path)
-        os.remove(self.cache_path)
+        if os.path.exists(self.cache_path):
+            os.remove(self.file_path)
+            shutil.copy(self.cache_path, self.file_path)
+            os.remove(self.cache_path)
+        else:
+            raise RuntimeError("The file has already been encrypted")     
