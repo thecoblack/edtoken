@@ -77,3 +77,16 @@ def test_remove_profile(tmp_path):
     edt = EDToken(path=path)
     edt.remove_profile("test-profile")
     assert edt.get_all_profiles() == []
+
+
+def test_remove_loaded_profile(tmp_path):
+    path = f"{tmp_path}/user_data.json"
+    with open(path, "w") as user_data:
+        user_data.write(json.dumps({"test-profile": {}}, indent=4))
+
+    edt = EDToken(path=path)
+    edt.load_profile("test-profile")
+    edt.remove_profile("test-profile")
+
+    assert edt.profile_id is None
+    assert edt.profile is None

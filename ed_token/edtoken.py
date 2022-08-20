@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
-from ed_token.utils import paths
 from ed_token.utils.exceptions import ProfileNotFound
 from ed_token.utils.json_files import JsonFiles
 from ed_token.utils.models import Cipher, Profile
@@ -20,6 +19,9 @@ class EDToken:
         path = path if path else self.path
         with JsonFiles(path) as user_json_obj:
             user_json_obj.remove_key(profile_id)
+
+        if profile_id == self.profile_id:
+            self.profile_id, self.profile = None, None
 
     def save_profile(self, path=None) -> None:
         with JsonFiles(self.path) as user_json_obj:
