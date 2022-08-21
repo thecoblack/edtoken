@@ -8,13 +8,13 @@ from ed_token.utils.templates import CommandTemplate
 
 
 class Wallet:
-    def __init__(self, file_path: str, profiles_file_path: str, profile_id: str):
+    def __init__(self, file_path: str, edtoken: EDToken):
         self.file_path: str = os.path.expanduser(file_path)
         self.cache_path: str = f"{paths.cache()}/{os.path.basename(file_path)}"
-        self.edtoken: EDToken = EDToken(path=profiles_file_path)
+        self.edtoken: EDToken = edtoken 
 
-        if not self.edtoken.load_profile(profile_id):
-            self.edtoken.initialize_profile(profile_id)
+        if not edtoken.profile_id:
+            raise RuntimeError(f"Does not exists the profile")
 
         if os.path.exists(self.file_path):
             self.cred_file = open(self.file_path, "r")

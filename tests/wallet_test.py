@@ -1,24 +1,45 @@
 import os
+import json
 import pytest
 
+from ed_token.edtoken import EDToken
 from ed_token.wallet import Wallet
 from ed_token.utils import paths
 from ed_token.utils.models import Cipher
 
 
+def test_init_wallet(tmp_path):
+    json_path = f"{tmp_path}/user_data.json"
+    with open(json_path, "w") as user_data:
+        user_data.write(json.dumps({}, indent=4))
+
+    path: str = f"{tmp_path}/encrypted_file"
+    with open(path, "w") as encrypted_file: pass
+
+    edtoken = EDToken("test-profile", json_path)
+    with pytest.raises(RuntimeError):
+        wallet = Wallet(path, edtoken) 
+
+    wrong_path: str = f"/wrong_path/encrypted_file"
+    edtoken.initialize_profile("test-profile")
+    with pytest.raises(FileNotFoundError):
+        wallet = Wallet(wrong_path, edtoken) 
+
+
 @pytest.fixture
 def wallet(tmp_path):
+    json_path = f"{tmp_path}/user_data.json"
+    with open(json_path, "w") as user_data:
+        user_data.write(json.dumps({}, indent=4))
+
     path: str = f"{tmp_path}/encrypted_file"
     with open(path, "w") as encrypted_file:
         encrypted_file.write("user={user}\npass={?token}")
 
-    wallet = Wallet(
-        path,
-        paths.user_json(),
-        "test-profile"
-    )
-    wallet.edtoken.set_content_to_profile("user", "test-profile")
-    wallet.edtoken.set_content_to_profile(
+    edtoken: EDToken = EDToken(path=json_path)
+    edtoken.initialize_profile("test-profile")
+    edtoken.set_content_to_profile("user", "test-profile")
+    edtoken.set_content_to_profile(
         "token",
         "token_01",
         Cipher(**{
@@ -26,6 +47,7 @@ def wallet(tmp_path):
             "key": "test"
         })
     )
+    wallet = Wallet(path, edtoken)
     return wallet
 
 def test_decrypt_file(tmp_path, wallet):
