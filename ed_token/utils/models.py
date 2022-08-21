@@ -26,7 +26,7 @@ class Profile(BaseModel):
         return self.content[id] if id in self.content else None
 
     def get_dict(self) -> Dict:
-        return {self.id: self.content}
+        return self.content
 
     def get_template(self, cipher_type: Optional[str], key: str = "") -> str:
         if cipher_type == "sym" or not cipher_type:

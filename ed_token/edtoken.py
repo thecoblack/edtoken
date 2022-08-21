@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
 from ed_token.utils.exceptions import ProfileNotFound
@@ -22,6 +22,14 @@ class EDToken:
 
         if profile_id == self.profile_id:
             self.profile_id, self.profile = None, None
+
+    def remove_profile_content(self, key: str) -> None:
+        if self.profile is None:
+            raise RuntimeError("No profile has been initializate")
+
+        with JsonFiles(self.path) as user_json_obj:
+            user_json_obj.remove_key([self.profile_id, key])
+            self.profile.content = user_json_obj.content
 
     def save_profile(self, path=None) -> None:
         with JsonFiles(self.path) as user_json_obj:

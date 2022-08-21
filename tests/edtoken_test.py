@@ -90,3 +90,23 @@ def test_remove_loaded_profile(tmp_path):
 
     assert edt.profile_id is None
     assert edt.profile is None
+
+
+def test_remove_profile_content(tmp_path):
+    path = f"{tmp_path}/user_data.json"
+    with open(path, "w") as user_data:
+        user_data.write(json.dumps({"test-profile": { "test-token": "" }}, indent=4))
+
+    edt = EDToken(profile="test-profile", path=path)
+    edt.remove_profile_content("test-token")
+    profile_content = edt.profile.get_dict()
+    assert profile_content == {"test-profile": {}}
+
+
+def test_remove_content_no_profile_initializated(tmp_path):
+    path = f"{tmp_path}/user_data.json"
+    with open(path, "w") as user_data: pass
+
+    edt = EDToken(path=path)
+    with pytest.raises(RuntimeError):
+        edt.remove_profile_content("")
