@@ -63,14 +63,10 @@ class EDToken:
     def set_content_to_profile(
         self, token_id: str, token: str, cipher: Optional[Cipher] = None,
     ) -> None:
-        crypted_values = False
-
         if cipher and cipher.type == "sym":
             tchiper = SymTokenCipher(token, token_id)
             token = tchiper.encrypt(cipher.key)
-            crypted_values = True
         elif cipher and cipher.type == "asym":
             raise NotImplementedError()
 
         self.profile.set_token(token_id, token)
-        self.profile.set_token("crypted-values", crypted_values)

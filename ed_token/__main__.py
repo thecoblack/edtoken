@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
-
 import argparse
 import getpass
 from subprocess import PIPE, Popen
-from sys import path, stdin, stdout, stderr
-from typing import Any
+from sys import path, stderr, stdin, stdout
+from typing import Any, Callable, Dict, Optional, Union
 
-from ed_token.token_cipher import AsymTokenCipher, SymTokenCipher
+from ed_token.edtoken import EDToken
 from ed_token.utils import paths
 from ed_token.utils.json_files import JsonFiles
-from ed_token.utils.templates import CommandTemplate
+from ed_token.utils.models import Cipher
 from ed_token.wallet import Wallet
 
 
@@ -26,9 +25,8 @@ def parse_args() -> argparse.Namespace:
         "wallet_action",
         choices=["open", "close"],
         help=(
-            "\nopen   Decrypts file contents\n"
-            "close  Re-encrypt file contents\n\n"
-        )
+            "\nopen   Decrypts file contents\n" "close  Re-encrypt file contents\n\n"
+        ),
     )
     wallet_group.add_argument(
         "profilename", help="Profile name to obtain the saved configurations"
@@ -105,147 +103,148 @@ def _get_input(args_value: str) -> Any:
             return f.read()
 
 
-def exists_crypted_values(profile_name: str) -> bool:
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        profile_content = user_json_obj.get_value(profile_name)
-        return profile_content["crypted-values"]
+def exists_crypted_values(edtoken: EDToken) -> bool:
+    return edtoken.profile.get_token("crypted-values") > 0
 
 
-def command_set(args: argparse.Namespace):
-    profile_name = args.profilename
-    k, v = args.key, args.value
-    crypted_values = False
+def command_set(args: argparse.Namespace, edtoken: EDToken):
+    k: str = args.key
+    v: str = args.value
+    crypted_values: int = edtoken.profile.get_token("crypted-values")
+    crypted_values += int(any([args.sym, args.asym]))
 
     if args.sym:
-        crypted_values = True
-        tchiper = SymTokenCipher(_show_input_hiding("Enter a token: "), k)
-        encryptation_key = _show_input_hiding("Enter a password: ")
-        v = tchiper.encrypt(encryptation_key)
+        token: str = _show_input_hiding("Enter a token: ")
+        cipher_key: str = _show_input_hiding("Enter a password: ")
+        edtoken.set_content_to_profile(
+            k, token, Cipher(**{"type": "sym", "key": cipher_key})
+        )
     elif args.asym:
         raise NotImplementedError()
     elif args.temp is not None:
-        k = "template"
-        if args.input is not None:
-            _get_input(args.input)
-        else:
-            v = args.temp
+        edtoken.set_template(args.temp)
     elif args.file is not None:
-        k, v = "file", args.file
+        edtoken.set_content_to_profile("file", args.file)
+    elif k is not None and v is not None:
+        edtoken.set_content_to_profile(k, v)
 
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        user_json_obj.set_value(profile_name, {k: v})
-        user_json_obj.set_value(profile_name, {"crypted-values": crypted_values})
-
-
-def command_add(args: argparse.Namespace):
-    profile_name = args.profilename
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        user_json_obj.set_value(profile_name, {})
+    edtoken.set_content_to_profile("crypted-values", crypted_values)
+    edtoken.save_profile()
 
 
-def command_remove(args: argparse.Namespace):
-    profile_name = args.profilename
-    key = args.rmfromprofile
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        if key is None:
-            response = ""
-            while not response in ["n", "y"]:
-                response = input("Are you sure? (y/n): ")
-            if response == "y":
-                user_json_obj.remove_key(profile_name)
-        else:
-            user_json_obj.remove_key([profile_name, key])
+def command_add(args: argparse.Namespace, edtoken: EDToken) -> None:
+    if edtoken.profile is None:
+        edtoken.initialize_profile(args.profilename)
+        edtoken.set_content_to_profile("crypted-values", 0)
+        edtoken.save_profile()
+    else:
+        print(f"The profile {args.profilename} already exists")
 
 
-def list_all_profiles():
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        profiles = user_json_obj.list_keys()
-        for i, profile in enumerate(profiles):
-            print("%s. %s" % (i + 1, profile))
+def command_remove(args: argparse.Namespace, edtoken: EDToken) -> None:
+    key: str = args.rmfromprofile
+    if key is None:
+        response: str = ""
+        while not response in ["n", "y"]:
+            response = input("Are you sure? (y/n): ")
+        if response == "y":
+            edtoken.remove_profile(edtoken.profile_id)
+    else:
+        edtoken.remove_profile_content(key)
 
 
-def command_show(args: argparse.Namespace):
-    profile = args.profilename
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        profile_content = user_json_obj.get_value(args.profilename)
+def list_all_profiles(edtoken: EDToken) -> None:
+    profiles: List[str] = edtoken.get_all_profiles()
+    for i, profile in enumerate(profiles):
+        print("%s. %s" % (i + 1, profile))
+
+
+def command_show(args: argparse.Namespace, edtoken: EDToken) -> None:
+    if edtoken.profile is not None:
+        profile_content: Dict = edtoken.profile.get_dict()
         print(JsonFiles.pretty_print(profile_content))
+    else:
+        print(f"The profile '{args.profilename}' does not exists")
 
 
-def command_exec(args: argparse.Namespace):
-    profile_name = args.profilename
-    cipher_type, key_cert = None, None
+def command_exec(args: argparse.Namespace, edtoken: EDToken) -> None:
+    cipher_type: Optional[str] = None
+    key_cert: Optional[str] = None
+
     if args.sym is not None:
         cipher_type = "sym"
         key_cert = _show_input_hiding("Enter a password: ")
     elif args.asym is not None:
         raise NotImplementedError()
-    elif exists_crypted_values(profile_name):
-        raise Exception("Pls select a cipher type.")
+    elif exists_crypted_values(edtoken):
+        raise RuntimeError("Template includes an encrypted token, pls select a cipher.")
 
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        command = (CommandTemplate(profile_name, cipher_type, key_cert)).get_command()
-        print(f"Command executed: {command}")
-        proc = Popen(command, shell=True)
-
-
-def command_get(args: argparse.Namespace):
-    profile_name: str = args.profilename
-    key = args.key
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        content: Dict = user_json_obj.get_value(profile_name)
-        if key in content:
-            print(content[key], file=stdout)
-        else:
-            print(None, file=stderr)
+    command: str = edtoken.profile.get_template(cipher_type=cipher_type, key=key_cert)
+    print(f"Command executed: {command}")
+    proc = Popen(command, shell=True)
 
 
-def command_wallet(args: argparse.Namespace):
-    profile_name: str = args.profilename
-    file_path: str = ""
+def command_get(args: argparse.Namespace, edtoken: EDToken) -> None:
+    key: str = args.key
+    value: Union[str, int, None] = edtoken.profile.get_token(key)
 
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        content: Dict = user_json_obj.get_value(profile_name)
-        file_path = content["file"]
+    if value is not None:
+        print(value, file=stdout)
+    else:
+        print(None, file=stderr)
 
-    wallet: Wallet = Wallet(file_path, paths.user_json(), profile_name)
+
+def command_wallet(edtoken: EDToken) -> None:
+    file_path: Optional[str] = edtoken.profile.get_token("file")
+
+    if file_path is None:
+        RuntimeError(f"There is not set a file path in {edtoken.profile_id}")
+
+    wallet: Wallet = Wallet(file_path, edtoken)
     key: str = _show_input_hiding("Key to decrypt file: ")
     wallet.open_file(key)
 
 
-def command_closewallet(args: argparse.Namespace):
-    profile_name: str = args.profilename
-    file_path: str = ""
+def command_closewallet(edtoken: EDToken) -> None:
+    file_path: Optional[str] = edtoken.profile.get_token("file")
 
-    with JsonFiles(paths.user_json()) as user_json_obj:
-        content: Dict = user_json_obj.get_value(profile_name)
-        file_path = content["file"]
+    if file_path is None:
+        RuntimeError(f"There is not set a file path in {edtoken.profile_id}")
 
-    wallet: Wallet = Wallet(file_path, paths.user_json(), profile_name)
+    wallet: Wallet = Wallet(file_path, edtoken)
     wallet.close_file()
 
 
 def main():
-    profile_actions = {
+    profile_actions: Dict[
+        str, Callable[[argparse.argparse.Namespace, EDToken], None]
+    ] = {
         "add": command_add,
         "set": command_set,
         "get": command_get,
         "remove": command_remove,
         "show": command_show,
         "exec": command_exec,
-        "get": command_get
+        "get": command_get,
     }
 
-    wallet_actions = {"open": command_wallet, "close": command_closewallet}
+    wallet_actions: Dict[str, Callable[[EDToken], None]] = {
+        "open": command_wallet,
+        "close": command_closewallet,
+    }
 
-    args = parse_args()
+    args: argparse.Namespace = parse_args()
     if "profile_action" in args:
-        profile_actions[args.profile_action](args)
+        edtoken: EDToken = EDToken(args.profilename, paths.user_json())
+        profile_actions[args.profile_action](args, edtoken)
         if args.verbose:
-            command_show(args)
+            command_show(args, edtoken)
     elif "wallet_action" in args:
-        wallet_actions[args.wallet_action](args)
+        edtoken: EDToken = EDToken(args.profilename, paths.user_json())
+        wallet_actions[args.wallet_action](edtoken)
     elif "list" in args:
-        list_all_profiles()
+        edtoken: EDToken = EDToken(path=paths.user_json())
+        list_all_profiles(edtoken)
 
 
 if __name__ == "__main__":
